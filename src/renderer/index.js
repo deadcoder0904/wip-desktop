@@ -8,8 +8,8 @@ import { onError } from "apollo-link-error";
 import { ApolloLink, concat, from } from "apollo-link";
 import { ApolloProvider } from "react-apollo";
 
-import { Home } from "../components/Home";
-import { Token } from "../components/Token";
+import { Home } from "../pages/Home";
+import { Token } from "../pages/Token";
 
 import { config } from "../config/index";
 
