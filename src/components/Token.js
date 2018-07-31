@@ -5,6 +5,9 @@ import { navigate, Redirect } from "@reach/router";
 
 import { config } from "../config/index";
 
+import { CREATE_TODO } from "../graphql/mutation/CreateTodo";
+import { DELETE_TODO } from "../graphql/mutation/DeleteTodo";
+
 export class Token extends React.Component {
   state = {
     token: "",
@@ -29,15 +32,14 @@ export class Token extends React.Component {
 
     try {
       const { data } = await client.mutate({
-        mutation: gql`
-          mutation {
-            createTodo(input: { body: ${JSON.stringify(body)} }) {
-              body
-            }
-          }
-        `
+        mutation: CREATE_TODO,
+        variables: { body }
       });
       if (data.createTodo.body === body) {
+        await client.mutate({
+          mutation: DELETE_TODO,
+          variables: { id: data.createTodo.id }
+        });
         config.set({ loggedIn: true });
         navigate("/home");
       }
