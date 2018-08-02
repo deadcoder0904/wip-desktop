@@ -1,17 +1,24 @@
 import React from "react";
+import styled from "react-emotion";
 
 import Query from "../components/Query";
 import { GET_PRODUCTS } from "../graphql/queries/GetProducts";
 import { GET_CURRENT_USER } from "../graphql/queries/GetCurrentUser";
 import Loading from "../components/Loading";
-import Logo from "../components/Logo";
+
+import construction from "../static/construction.svg";
+
+const Logo = styled.img`
+  width: 5rem;
+  height: 5rem;
+`;
 
 export const Home = () => (
   <Query query={GET_CURRENT_USER}>
     {({ data: { viewer } }) => {
       return (
         <div>
-          <Logo />
+          <Logo src={construction} />
           <h1>
             {viewer.first_name} {viewer.last_name}
           </h1>

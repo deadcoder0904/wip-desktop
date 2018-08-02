@@ -11,7 +11,7 @@ import { config } from "../config/index";
 import { CREATE_TODO } from "../graphql/mutation/CreateTodo";
 import { DELETE_TODO } from "../graphql/mutation/DeleteTodo";
 
-import tokenArt from "../static/token-art.svg";
+import tokenArt from "../static/token.svg";
 
 const Container = styled.div`
   position: absolute;
