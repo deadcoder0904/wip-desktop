@@ -16,6 +16,7 @@ const createMainWindow = () => {
     only setting minWidth or minHeight doesn't work, have to set width & height too
     also setting one of minWidth or minHeight doesn't work, have to set both minWidth & minHeight
     */
+    title: "WIP Desktop",
     frame: false
   });
 

@@ -4,12 +4,13 @@ import gql from "graphql-tag";
 import { navigate, Redirect } from "@reach/router";
 import styled from "react-emotion";
 
+import { state } from "../utils/state";
+
 import Loading from "../components/Loading";
 
-import { config } from "../config/index";
-
-import { CREATE_TODO } from "../graphql/mutation/CreateTodo";
-import { DELETE_TODO } from "../graphql/mutation/DeleteTodo";
+import { CREATE_TODO } from "../graphql/mutation/CREATE_TODO";
+import { DELETE_TODO } from "../graphql/mutation/DELETE_TODO";
+import { GET_USER } from "../graphql/queries/GET_USER";
 
 import tokenArt from "../static/token.svg";
 
@@ -77,8 +78,8 @@ export class Token extends React.Component {
       });
       return;
     }
+    state.set({ token });
     this.setState({ error: false, loading: true });
-    config.set({ token });
     const body =
       "This todo will be automatically added & removed by WIP Desktop";
 
@@ -92,7 +93,10 @@ export class Token extends React.Component {
           mutation: DELETE_TODO,
           variables: { id: data.createTodo.id }
         });
-        config.set({ loggedIn: true });
+        const user = await client.query({
+          query: GET_USER
+        });
+        state.set({ loggedIn: true, user: user.data.viewer });
         navigate("/home");
       }
     } catch (error) {
@@ -104,7 +108,7 @@ export class Token extends React.Component {
   };
 
   render() {
-    if (config.get("loggedIn")) return <Redirect to="/home" noThrow />;
+    if (state.get("loggedIn")) return <Redirect to="/home" noThrow />;
     const { token, loading, error } = this.state;
     return (
       <ApolloConsumer>

@@ -1,11 +1,6 @@
 import React from "react";
 import { render } from "react-dom";
 import { Router } from "@reach/router";
-import { ApolloClient } from "apollo-client";
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { HttpLink } from "apollo-link-http";
-import { onError } from "apollo-link-error";
-import { ApolloLink, concat, from } from "apollo-link";
 import { ApolloProvider } from "react-apollo";
 import { ThemeProvider } from "emotion-theming";
 
@@ -14,39 +9,9 @@ import { theme } from "../styles/theme";
 
 import { Home } from "../pages/Home";
 import { Token } from "../pages/Token";
-import { Navbar } from "../components/Navbar";
+import { Titlebar } from "../components/Titlebar";
 
-import { config } from "../config/index";
-
-const authMiddleware = new ApolloLink((operation, forward) => {
-  operation.setContext({
-    headers: {
-      Authorization: `bearer ${config.get("token")}`,
-      "Access-Control-Allow-Origin": "*"
-    }
-  });
-
-  return forward(operation);
-});
-
-const errorLink = onError(({ graphQLErrors, networkError }) => {
-  if (graphQLErrors)
-    graphQLErrors.map(({ message, locations, path }) =>
-      console.log(
-        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-      )
-    );
-  if (networkError) console.log(`[Network error]: ${networkError}`);
-});
-
-const httpLink = new HttpLink({
-  uri: "https://wip.chat/graphql"
-});
-
-const client = new ApolloClient({
-  link: concat(authMiddleware, from([errorLink, httpLink])),
-  cache: new InMemoryCache()
-});
+import { client } from "../utils/stateLink";
 
 class App extends React.Component {
   state = {
@@ -66,10 +31,10 @@ class App extends React.Component {
         <ThemeProvider theme={this.state.theme}>
           <Global>
             <>
-              <Navbar />
+              <Titlebar />
               <Router>
-                <Token path="/" />
                 <Home path="/home" />
+                <Token path="/" />
               </Router>
             </>
           </Global>

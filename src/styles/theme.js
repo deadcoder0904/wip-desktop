@@ -1,14 +1,20 @@
 export const theme = {
   LIGHT: {
-    textColor: "#333",
+    textColor: "#111",
     bgColor: "#fff",
     titleBarHeight: "2.5rem",
-    navBarColor: "#333"
+    navBarColor: "#fff",
+    sideBarBg: "#fff",
+    sideBarWidth: "25rem",
+    fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;`
   },
   DARK: {
     textColor: "#dadada",
-    bgColor: "#333",
+    bgColor: "#111",
     titleBarHeight: "2.5rem",
-    navBarColor: "#dadada"
+    navBarColor: "#dadada",
+    sideBarBg: "#fff",
+    sideBarWidth: "25rem",
+    fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;`
   }
 };

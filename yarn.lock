@@ -724,9 +724,9 @@
   version "1.13.6"
   resolved "https://registry.yarnpkg.com/@types/webpack-env/-/webpack-env-1.13.6.tgz#128d1685a7c34d31ed17010fc87d6a12c1de6976"
 
-"@types/zen-observable@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.8.0.tgz#8b63ab7f1aa5321248aad5ac890a485656dcea4d"
+"@types/zen-observable@^0.5.3":
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.5.4.tgz#b863a4191e525206819e008097ebf0fb2e3a1cdc"
 
 "@webassemblyjs/ast@1.5.13":
   version "1.5.13"
@@ -981,21 +981,21 @@ apollo-cache-inmemory@^1.3.0-beta.6:
     apollo-utilities "^1.0.17"
     optimism "^0.6.5"
 
-apollo-cache@^1.1.13:
+apollo-cache@^1.1.12, apollo-cache@^1.1.13:
   version "1.1.13"
   resolved "https://registry.yarnpkg.com/apollo-cache/-/apollo-cache-1.1.13.tgz#75c28091825992b2eec9fb63c9a367db3b4714a8"
   dependencies:
     apollo-utilities "^1.0.17"
 
-apollo-client@^2.3.7:
-  version "2.3.7"
-  resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-2.3.7.tgz#891cd2392851f861a62fe334fa76fc629ed19fd3"
+apollo-client@2.3.5:
+  version "2.3.5"
+  resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-2.3.5.tgz#74b62bd7e7bd7030d01c35e2e221ed65a807af23"
   dependencies:
-    "@types/zen-observable" "^0.8.0"
-    apollo-cache "^1.1.13"
+    "@types/zen-observable" "^0.5.3"
+    apollo-cache "^1.1.12"
     apollo-link "^1.0.0"
     apollo-link-dedup "^1.0.0"
-    apollo-utilities "^1.0.17"
+    apollo-utilities "^1.0.16"
     symbol-observable "^1.0.2"
     zen-observable "^0.8.0"
   optionalDependencies:
@@ -1041,7 +1041,7 @@ apollo-link@^1.0.0, apollo-link@^1.2.2:
     apollo-utilities "^1.0.0"
     zen-observable-ts "^0.8.9"
 
-apollo-utilities@^1.0.0, apollo-utilities@^1.0.17, apollo-utilities@^1.0.8:
+apollo-utilities@^1.0.0, apollo-utilities@^1.0.16, apollo-utilities@^1.0.17, apollo-utilities@^1.0.8:
   version "1.0.17"
   resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-1.0.17.tgz#04cd22db5c5dba8dbd349e28b0d9f9f525ab8e8a"
   dependencies:
@@ -2245,7 +2245,7 @@ call-me-maybe@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/call-me-maybe/-/call-me-maybe-1.0.1.tgz#26d208ea89e37b5cbde60250a15f031c16a4d66b"
 
-camel-case@3.0.x:
+camel-case@3.0.x, camel-case@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/camel-case/-/camel-case-3.0.0.tgz#ca3c3688a4e9cf3a4cda777dc4dcbc713249cf73"
   dependencies:
@@ -5296,7 +5296,7 @@ lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
 
-lodash@^4.13.1, lodash@^4.17.10, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.0, lodash@^4.3.0:
+lodash@4.17.10, lodash@^4.13.1, lodash@^4.17.10, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.0, lodash@^4.3.0:
   version "4.17.10"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
 
@@ -6647,7 +6647,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.6.0, prop-types@^15.6.1:
+prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
   dependencies:
@@ -6788,14 +6788,14 @@ rc@^1.0.1, rc@^1.1.2, rc@^1.1.6, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-apollo@^2.1.9:
-  version "2.1.9"
-  resolved "https://registry.yarnpkg.com/react-apollo/-/react-apollo-2.1.9.tgz#1fd30ea2116375197bd53daa725e6fb8ab43ab80"
+react-apollo@2.1.6:
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/react-apollo/-/react-apollo-2.1.6.tgz#13be92689009eda9023948c78532f4102cbc3d57"
   dependencies:
     fbjs "^0.8.16"
     hoist-non-react-statics "^2.5.0"
     invariant "^2.2.2"
-    lodash "^4.17.10"
+    lodash "4.17.10"
     prop-types "^15.6.0"
 
 react-dom@^16.4.1:
@@ -6814,6 +6814,13 @@ react-emotion@^9.2.6:
     babel-plugin-emotion "^9.2.6"
     create-emotion-styled "^9.2.6"
 
+react-icons-kit@^1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/react-icons-kit/-/react-icons-kit-1.1.7.tgz#806e71710df0f9c733355199763a165886e00c50"
+  dependencies:
+    camel-case "^3.0.0"
+    prop-types "^15.5.8"
+
 react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
@@ -6821,6 +6828,12 @@ react-lifecycles-compat@^3.0.4:
 react-loading@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/react-loading/-/react-loading-2.0.3.tgz#e8138fb0c3e4674e481b320802ac7048ae14ffb9"
+
+react-string-replace@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/react-string-replace/-/react-string-replace-0.4.1.tgz#024c6ac0a91163ecae439a1b197d3e1660c98c0d"
+  dependencies:
+    lodash "^4.17.4"
 
 react@^16.4.1:
   version "16.4.1"
@@ -8234,7 +8247,7 @@ utils-merge@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
 
-uuid@^3.0.1, uuid@^3.1.0:
+uuid@^3.0.1, uuid@^3.1.0, uuid@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
 
