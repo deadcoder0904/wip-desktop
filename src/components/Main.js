@@ -155,8 +155,8 @@ export class Main extends React.Component {
               optimisticResponse={{
                 __typename: "Mutation",
                 createTodo: {
-                  __typename: "Todo",
                   id: v4(),
+                  __typename: "Todo",
                   body: input
                 }
               }}
@@ -168,11 +168,17 @@ export class Main extends React.Component {
                     completed: true
                   }
                 });
-                console.log(data, createTodo);
-                const newData = data.product.todos.concat(createTodo);
+                const newProducts = {
+                  product: {
+                    hashtag: hashtag,
+                    todos: data.product.todos.concat(createTodo),
+                    __typename: "Product"
+                  }
+                };
+                console.log({ data, createTodo, newProducts });
                 cache.writeQuery({
                   query: GET_TODOS_BY_PRODUCT,
-                  data: newData
+                  data: newProducts
                 });
               }}
             >

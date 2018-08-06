@@ -16,9 +16,11 @@ const Container = styled.div`
   -webkit-app-region: no-drag;
 `;
 
+const selectedProduct = state.get("selectedProduct");
+
 export class Home extends React.Component {
   state = {
-    selectedProduct: state.get("selectedProduct")
+    selectedProduct: selectedProduct
   };
 
   render() {
@@ -34,16 +36,26 @@ export class Home extends React.Component {
               state.set({
                 selectedProduct: user.products ? user.products[0] : []
               });
-            return <Sidebar products={user.products} />;
-          }}
-        </Query>
-
-        <Query
-          query={GET_TODOS_BY_PRODUCT}
-          variables={{ id: selectedProduct.id, completed: true }}
-        >
-          {({ data: { product } }) => {
-            return <Main todos={product.todos} hashtag={product.hashtag} />;
+            return (
+              <Query
+                query={GET_TODOS_BY_PRODUCT}
+                variables={{
+                  id: !selectedProduct
+                    ? user.products[0].id
+                    : selectedProduct.id,
+                  completed: true
+                }}
+              >
+                {({ data: { product } }) => {
+                  return (
+                    <>
+                      <Sidebar products={user.products} />;
+                      <Main todos={product.todos} hashtag={product.hashtag} />
+                    </>
+                  );
+                }}
+              </Query>
+            );
           }}
         </Query>
       </Container>

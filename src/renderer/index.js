@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "react-dom";
-import { Router } from "@reach/router";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import { ApolloProvider } from "react-apollo";
 import { ThemeProvider } from "emotion-theming";
 
@@ -33,8 +33,10 @@ class App extends React.Component {
             <>
               <Titlebar />
               <Router>
-                <Home path="/home" />
-                <Token path="/" />
+                <Switch>
+                  <Route path="/home" component={Home} />
+                  <Route path="/" component={Token} />
+                </Switch>
               </Router>
             </>
           </Global>

@@ -1,7 +1,7 @@
 import React from "react";
 import { ApolloConsumer } from "react-apollo";
 import gql from "graphql-tag";
-import { navigate, Redirect } from "@reach/router";
+import { Redirect } from "react-router";
 import styled from "react-emotion";
 
 import { state } from "../utils/state";
@@ -97,7 +97,7 @@ export class Token extends React.Component {
           query: GET_USER
         });
         state.set({ loggedIn: true, user: user.data.viewer });
-        navigate("/home");
+        this.props.history.push("/home");
       }
     } catch (error) {
       this.setState({
@@ -108,7 +108,7 @@ export class Token extends React.Component {
   };
 
   render() {
-    if (state.get("loggedIn")) return <Redirect to="/home" noThrow />;
+    if (state.get("loggedIn")) return <Redirect to="/home" />;
     const { token, loading, error } = this.state;
     return (
       <ApolloConsumer>
