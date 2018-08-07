@@ -12,5 +12,4 @@ state.onDidChange("selectedProduct", (newProduct, oldProduct) => {
   state.set({
     selectedProduct: newProduct
   });
-  console.log(newProduct);
 });

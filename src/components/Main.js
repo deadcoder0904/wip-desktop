@@ -127,13 +127,9 @@ export class Main extends React.Component {
 
   render() {
     const { input } = this.state;
-    const {
-      id
-      // product: { todos, hashtag }
-    } = this.props;
-    // console.log({ todosInRender: todos });
+    const { id } = this.props;
     return (
-      <Query query={GET_TODOS_BY_PRODUCT} variables={{ id, completed: true }}>
+      <Query query={GET_TODOS_BY_PRODUCT} variables={{ id }}>
         {({ data: { product } }) => {
           const { todos, hashtag } = product;
           return (

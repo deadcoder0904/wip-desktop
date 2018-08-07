@@ -33,28 +33,6 @@ export class Home extends React.Component {
               state.set({
                 selectedProduct: user.products ? user.products[1] : []
               });
-            {
-              /* return (
-              <Query
-                query={GET_TODOS_BY_PRODUCT}
-                variables={{
-                  id: !selectedProduct
-                    ? user.products[0].id
-                    : selectedProduct.id,
-                  completed: true
-                }}
-              >
-                {({ data: { product } }) => {
-                  return (
-                    <>
-                      <Sidebar products={user.products} />;
-                      <Main product={product} />
-                    </>
-                  );
-                }}
-              </Query>
-            ); */
-            }
             return (
               <>
                 <Sidebar products={user.products} />

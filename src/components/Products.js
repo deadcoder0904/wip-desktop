@@ -56,41 +56,40 @@ export class Products extends React.Component {
           onInputChange={this._onInputChange}
           clearInput={this._clearInput}
         />
-        <Query fetchPolicy="cache-and-network" query={GET_SELECTED_PRODUCT}>
-          {({ data }) => (
+        <Query query={GET_SELECTED_PRODUCT}>
+          {({ data: { selectedProduct } }) => (
             <Container>
               {this._filterProducts(products, input).map((product, i) => (
                 <Mutation
-                  fetchPolicy="cache-and-network"
                   key={v4()}
                   mutation={SWITCH_SELECTED_PRODUCT}
-                  refetchQueries={result => {
-                    console.log("refetchQueries", result, product);
-                    state.set({ selectedProduct: product });
-                    return [
-                      {
-                        query: GET_TODOS_BY_PRODUCT,
-                        variables: { id: product.id, completed: true }
+                  refetchQueries={[
+                    {
+                      query: GET_TODOS_BY_PRODUCT,
+                      variables: {
+                        id: product.id
                       }
-                    ];
-                  }}
+                    }
+                  ]}
                 >
-                  {mutate => (
-                    <Product
-                      onClick={() => {
-                        mutate({
-                          variables: { id: product.id, name: product.name }
-                        });
-                      }}
-                      highlight={
-                        data.selectedProduct
-                          ? product.name === data.selectedProduct.name
-                          : i === 0
-                      }
-                    >
-                      <Name>{product.name}</Name>
-                    </Product>
-                  )}
+                  {mutate => {
+                    const highlightedProduct = selectedProduct
+                      ? product.name === selectedProduct.name
+                      : i === 0;
+                    return (
+                      <Product
+                        onClick={() => {
+                          if (highlightedProduct) return;
+                          mutate({
+                            variables: { id: product.id, name: product.name }
+                          });
+                        }}
+                        highlight={highlightedProduct}
+                      >
+                        <Name>{product.name}</Name>
+                      </Product>
+                    );
+                  }}
                 </Mutation>
               ))}
             </Container>
