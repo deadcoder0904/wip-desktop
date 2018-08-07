@@ -127,80 +127,63 @@ export class Main extends React.Component {
 
   render() {
     const { input } = this.state;
-    const { todos, hashtag } = this.props;
-
-    {
-      /* <Query query={GET_CURRENT_USER}>
-    {({ data: { viewer } }) => { */
-    }
+    const {
+      id
+      // product: { todos, hashtag }
+    } = this.props;
+    // console.log({ todosInRender: todos });
     return (
-      <Content>
-        <Todos>
-          {todos.map(todo => (
-            <TodoBox key={v4()}>
-              <CheckBox type="checkbox" id={todo.id} />
-              <Todo htmlFor={todo.id}>
-                {this._getHashtag(todo.body, hashtag)}
-              </Todo>
-            </TodoBox>
-          ))}
-        </Todos>
-        <Bg>
-          <InputBox>
-            <IconContainer>
-              <Icon icon={pencil2} size={16} />
-            </IconContainer>
-            <Mutation
-              mutation={CREATE_TODO}
-              optimisticResponse={{
-                __typename: "Mutation",
-                createTodo: {
-                  __typename: "Todo",
-                  id: v4(),
-                  body: input
-                }
-              }}
-              update={(cache, { data: { createTodo } }) => {
-                const data = cache.readQuery({
-                  query: GET_TODOS_BY_PRODUCT,
-                  variables: {
-                    id: state.get("selectedProduct.id"),
-                    completed: true
-                  }
-                });
-                const newProducts = {
-                  product: {
-                    hashtag: hashtag,
-                    todos: data.product.todos.concat(createTodo),
-                    __typename: "Product"
-                  }
-                };
-                console.log({ data, createTodo, newProducts });
-                cache.writeQuery({
-                  query: GET_TODOS_BY_PRODUCT,
-                  data: newProducts
-                });
-              }}
-            >
-              {mutate => (
-                <Input
-                  placeholder="Add Todo..."
-                  value={input}
-                  onChange={this._onInputChange}
-                  onKeyPress={e => this._onKeyPress(e, mutate)}
-                />
-              )}
-            </Mutation>
-            {input !== "" && (
-              <IconContainer onClick={this._clearInput}>
-                <Icon icon={cross} size={8} />
-              </IconContainer>
-            )}
-          </InputBox>
-        </Bg>
-      </Content>
+      <Query query={GET_TODOS_BY_PRODUCT} variables={{ id, completed: true }}>
+        {({ data: { product } }) => {
+          const { todos, hashtag } = product;
+          return (
+            <Content>
+              <Todos>
+                {todos.map(todo => (
+                  <TodoBox key={v4()}>
+                    <CheckBox type="checkbox" id={todo.id} />
+                    <Todo htmlFor={todo.id}>
+                      {this._getHashtag(todo.body, hashtag)}
+                    </Todo>
+                  </TodoBox>
+                ))}
+              </Todos>
+              <Bg>
+                <InputBox>
+                  <IconContainer>
+                    <Icon icon={pencil2} size={16} />
+                  </IconContainer>
+                  <Mutation
+                    mutation={CREATE_TODO}
+                    refetchQueries={[
+                      {
+                        query: GET_TODOS_BY_PRODUCT,
+                        variables: {
+                          id: state.get("selectedProduct.id")
+                        }
+                      }
+                    ]}
+                  >
+                    {mutate => (
+                      <Input
+                        placeholder="Add Todo..."
+                        value={input}
+                        onChange={this._onInputChange}
+                        onKeyPress={e => this._onKeyPress(e, mutate)}
+                      />
+                    )}
+                  </Mutation>
+                  {input !== "" && (
+                    <IconContainer onClick={this._clearInput}>
+                      <Icon icon={cross} size={8} />
+                    </IconContainer>
+                  )}
+                </InputBox>
+              </Bg>
+            </Content>
+          );
+        }}
+      </Query>
     );
-    /* }}
-  </Query> */
   }
 }

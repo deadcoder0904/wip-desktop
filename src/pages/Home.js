@@ -7,7 +7,6 @@ import Query from "../components/Query";
 import { Main } from "../components/Main";
 import { Sidebar } from "../components/Sidebar";
 
-import { viewer } from "../static/viewer";
 import { GET_ALL_PRODUCTS } from "../graphql/queries/GET_ALL_PRODUCTS";
 import { GET_TODOS_BY_PRODUCT } from "../graphql/queries/GET_TODOS_BY_PRODUCT";
 
@@ -16,11 +15,9 @@ const Container = styled.div`
   -webkit-app-region: no-drag;
 `;
 
-const selectedProduct = state.get("selectedProduct");
-
 export class Home extends React.Component {
   state = {
-    selectedProduct: selectedProduct
+    selectedProduct: state.get("selectedProduct")
   };
 
   render() {
@@ -34,9 +31,10 @@ export class Home extends React.Component {
           {({ data: { user } }) => {
             if (!selectedProduct)
               state.set({
-                selectedProduct: user.products ? user.products[0] : []
+                selectedProduct: user.products ? user.products[1] : []
               });
-            return (
+            {
+              /* return (
               <Query
                 query={GET_TODOS_BY_PRODUCT}
                 variables={{
@@ -50,11 +48,22 @@ export class Home extends React.Component {
                   return (
                     <>
                       <Sidebar products={user.products} />;
-                      <Main todos={product.todos} hashtag={product.hashtag} />
+                      <Main product={product} />
                     </>
                   );
                 }}
               </Query>
+            ); */
+            }
+            return (
+              <>
+                <Sidebar products={user.products} />
+                <Main
+                  id={
+                    !selectedProduct ? user.products[0].id : selectedProduct.id
+                  }
+                />
+              </>
             );
           }}
         </Query>
