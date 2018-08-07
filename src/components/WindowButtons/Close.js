@@ -13,21 +13,6 @@ export const ClosePressed = props => (
   </svg>
 );
 
-export const CloseUnFocused = props => (
-  <svg height={24} width={24} {...props}>
-    <g fillRule="evenodd">
-      <path
-        d="M12.273 18.727a6.727 6.727 0 1 0 0-13.454 6.727 6.727 0 0 0 0 13.454"
-        fill="#4d4d4d"
-      />
-      <path
-        d="M12.273 18.155a6.155 6.155 0 1 0 0-12.31 6.155 6.155 0 0 0 0 12.31"
-        fill="#666"
-      />
-    </g>
-  </svg>
-);
-
 export const Close = props => (
   <svg height={24} width={24} {...props}>
     <g fillRule="evenodd">

@@ -12,19 +12,19 @@ import { CREATE_TODO } from "../graphql/mutation/CREATE_TODO";
 import { DELETE_TODO } from "../graphql/mutation/DELETE_TODO";
 import { GET_USER } from "../graphql/queries/GET_USER";
 
-import tokenArt from "../static/token.svg";
+import construction from "../static/construction.svg";
 
 const Container = styled.div`
   position: absolute;
-  top: 60%;
+  top: 75%;
   left: 50%;
   transform: translate(-50%, -50%);
   height: calc(100vh - ${props => props.theme.titleBarHeight});
 `;
 
 const Img = styled.img`
-  width: 512px;
-  height: 420px;
+  width: 35rem;
+  height: 25rem;
 `;
 
 const Wrapper = styled.div`
@@ -114,7 +114,7 @@ export class Token extends React.Component {
       <ApolloConsumer>
         {client => (
           <Container>
-            <Img src={tokenArt} />
+            <Img src={construction} />
             <Wrapper>
               <Input
                 type="text"

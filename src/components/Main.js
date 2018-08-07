@@ -106,9 +106,9 @@ export class Main extends React.Component {
     this.setState({ input: e.target.value });
   };
 
-  _onKeyPress = (e, createTodo) => {
+  _onKeyPress = (e, mutate) => {
     if (e.key === "Enter") {
-      createTodo({
+      mutate({
         variables: { body: this.state.input }
       });
       this._clearInput();
@@ -155,8 +155,8 @@ export class Main extends React.Component {
               optimisticResponse={{
                 __typename: "Mutation",
                 createTodo: {
-                  id: v4(),
                   __typename: "Todo",
+                  id: v4(),
                   body: input
                 }
               }}
@@ -182,12 +182,12 @@ export class Main extends React.Component {
                 });
               }}
             >
-              {createTodo => (
+              {mutate => (
                 <Input
                   placeholder="Add Todo..."
                   value={input}
                   onChange={this._onInputChange}
-                  onKeyPress={e => this._onKeyPress(e, createTodo)}
+                  onKeyPress={e => this._onKeyPress(e, mutate)}
                 />
               )}
             </Mutation>

@@ -75,10 +75,10 @@ export class Products extends React.Component {
                     ];
                   }}
                 >
-                  {switchSelectedProduct => (
+                  {mutate => (
                     <Product
                       onClick={() => {
-                        switchSelectedProduct({
+                        mutate({
                           variables: { id: product.id, name: product.name }
                         });
                       }}

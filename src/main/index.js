@@ -1,6 +1,6 @@
 import { app, BrowserWindow } from "electron";
 import * as path from "path";
-import { answerRenderer } from "electron-better-ipc";
+import { answerRenderer, callRenderer } from "electron-better-ipc";
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
@@ -45,6 +45,14 @@ const createMainWindow = () => {
     setImmediate(() => {
       window.focus();
     });
+  });
+
+  window.on("blur", async () => {
+    await callRenderer(window, "window-blur", "true");
+  });
+
+  window.on("focus", async () => {
+    await callRenderer(window, "window-blur", "false");
   });
 
   return window;

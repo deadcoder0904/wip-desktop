@@ -1,19 +1,17 @@
 import React from "react";
 import styled, { css } from "react-emotion";
-import { callMain } from "electron-better-ipc";
+import { callMain, answerMain } from "electron-better-ipc";
 
 import construction from "../static/construction.svg";
 
 import {
   Close,
   ClosePressed,
-  CloseUnFocused,
   Minimize,
   MinimizePressed,
-  MinimizeUnFocused,
   Maximize,
   MaximizePressed,
-  MaximizeUnFocused
+  Unfocused
 } from "../components/WindowButtons/index";
 import { Logo } from "../components/Logo";
 
@@ -28,6 +26,7 @@ const Container = styled.div`
 
 const ButtonStyle = css`
   margin: 0.2rem;
+  z-index: 1;
 `;
 
 const Wrapper = styled.div`
@@ -35,6 +34,8 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   margin: 0.5rem;
+  position: absolute;
+  width: 100%;
 `;
 
 const Img = styled.img`
@@ -52,21 +53,44 @@ const Header = styled.h1`
 `;
 
 export class Titlebar extends React.Component {
-  state = { iconsHovered: false };
+  state = { iconsHovered: false, isFullScreen: false };
+
+  componentDidMount() {
+    answerMain("window-blur", isBlur => {
+      this.setState(prevState => ({
+        isBlur: !prevState.isBlur
+      }));
+    });
+  }
 
   _toggleIcons = () => {
     this.setState(prevState => ({ iconsHovered: !prevState.iconsHovered }));
   };
 
   _pressWindowIcons = async action => {
+    if (action === "app-maximize")
+      this.setState({ isFullScreen: !this.state.isFullScreen });
     await callMain(action);
   };
 
   render() {
-    const { iconsHovered } = this.state;
-    const CloseButton = iconsHovered ? ClosePressed : Close;
-    const MinimizeButton = iconsHovered ? MinimizePressed : Minimize;
-    const MaximizeButton = iconsHovered ? MaximizePressed : Maximize;
+    const { iconsHovered, isFullScreen, isBlur } = this.state;
+    let CloseButton, MinimizeButton, MaximizeButton;
+    if (iconsHovered) {
+      CloseButton = ClosePressed;
+      MinimizeButton = MinimizePressed;
+      MaximizeButton = MaximizePressed;
+    } else {
+      CloseButton = Close;
+      MinimizeButton = Minimize;
+      MaximizeButton = Maximize;
+    }
+    if (isFullScreen) MinimizeButton = Unfocused;
+    if (isBlur) {
+      CloseButton = Unfocused;
+      MinimizeButton = Unfocused;
+      MaximizeButton = Unfocused;
+    }
     return (
       <Container>
         <CloseButton
