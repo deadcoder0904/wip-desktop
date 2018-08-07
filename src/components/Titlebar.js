@@ -19,12 +19,14 @@ const Container = styled.div`
   display: flex;
   position: fixed;
   z-index: 2;
-  background: ${props => props.theme.navBarColor};
+  background: ${props => props.theme.titlebar.bgColor};
   width: 100%;
-  height: ${props => props.theme.titleBarHeight};
+  height: ${props => props.theme.titlebar.height};
+  -webkit-app-region: drag;
 `;
 
 const ButtonStyle = css`
+  -webkit-app-region: no-drag;
   margin: 0.2rem;
   z-index: 1;
 `;
@@ -32,8 +34,9 @@ const ButtonStyle = css`
 const Wrapper = styled.div`
   flex: 1;
   display: flex;
+  background: ${props => props.theme.titlebar.bgColor};
   justify-content: center;
-  margin: 0.5rem;
+  padding: 0.5rem;
   position: absolute;
   width: 100%;
 `;
@@ -48,7 +51,7 @@ const Header = styled.h1`
   padding: 0;
   margin: 0;
   font-size: 1.6rem;
-  font-family: ${props => props.theme.fontFamily};
+  font-family: ${props => props.theme.global.fontFamily};
   font-weight: 300;
 `;
 

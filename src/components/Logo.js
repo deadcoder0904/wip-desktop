@@ -4,10 +4,10 @@ import construction from "../static/construction.svg";
 
 const Bg = styled.div`
   position: fixed;
-  top: ${props => props.theme.titleBarHeight};
+  top: ${props => props.theme.titlebar.height};
   z-index: 1;
-  background: ${props => props.theme.sideBarBg};
-  width: ${props => props.theme.sideBarWidth};
+  background: ${props => props.theme.sidebar.bgColor};
+  width: ${props => props.theme.sidebar.width};
   height: 8rem;
 `;
 
@@ -27,7 +27,7 @@ const Img = styled.img`
 const Header = styled.h1`
   font-weight: 300;
   font-size: 3rem;
-  font-family: ${props => props.theme.fontFamily};
+  font-family: ${props => props.theme.global.fontFamily};
 `;
 
 export const Logo = () => (

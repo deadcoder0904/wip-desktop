@@ -19,7 +19,7 @@ const Container = styled.div`
   top: 75%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: calc(100vh - ${props => props.theme.titleBarHeight});
+  height: calc(100vh - ${props => props.theme.titlebar.height});
 `;
 
 const Img = styled.img`

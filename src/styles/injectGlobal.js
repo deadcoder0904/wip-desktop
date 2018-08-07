@@ -6,11 +6,13 @@ import { withTheme } from "emotion-theming";
 
 class Global extends React.Component {
   componentDidUpdate(prevProps) {
-    if (this.props.theme.bgColor !== prevProps.theme.bgColor) {
-      window.document.body.style.backgroundColor = this.props.theme.bgColor;
+    if (this.props.theme.global.bgColor !== prevProps.theme.global.bgColor) {
+      window.document.body.style.backgroundColor = this.props.theme.global.bgColor;
     }
-    if (this.props.theme.textColor !== prevProps.theme.textColor) {
-      window.document.body.style.color = this.props.theme.textColor;
+    if (
+      this.props.theme.global.textColor !== prevProps.theme.global.textColor
+    ) {
+      window.document.body.style.color = this.props.theme.global.textColor;
     }
   }
 
@@ -37,8 +39,8 @@ class Global extends React.Component {
 			}
 
 			body {
-				background-color: ${this.props.theme.bgColor};
-				color: ${this.props.theme.textColor};
+				background-color: ${this.props.theme.global.bgColor};
+				color: ${this.props.theme.global.textColor};
 				box-sizing: border-box;
 				padding: 0px;
 				margin: 0px;

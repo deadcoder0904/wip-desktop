@@ -22,11 +22,14 @@ const Product = styled.li`
   padding: 0.5rem;
   margin: 0.5rem;
   height: 3.5rem;
-  color: ${props => (props.highlight ? "#123456" : "#aaa")};
 `;
 
 const Name = styled.div`
-  font-family: ${props => props.theme.fontFamily};
+  color: ${props =>
+    props.highlight
+      ? props.theme.sidebar.highlightColor
+      : props.theme.sidebar.textColor};
+  font-family: ${props => props.theme.global.fontFamily};
   font-size: 1.6rem;
   font-weight: 300;
 `;
@@ -84,9 +87,10 @@ export class Products extends React.Component {
                             variables: { id: product.id, name: product.name }
                           });
                         }}
-                        highlight={highlightedProduct}
                       >
-                        <Name>{product.name}</Name>
+                        <Name highlight={highlightedProduct}>
+                          {product.name}
+                        </Name>
                       </Product>
                     );
                   }}

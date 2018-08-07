@@ -10,12 +10,12 @@ const SearchBox = styled.div`
   height: 2.5rem;
   padding: 0.5rem;
   margin: 1rem 1rem 1rem 2rem;
-  background: #f7f7f7;
+  background: ${props => props.theme.search.bgColor};
 `;
 
 const Input = styled.input`
   outline: none;
-  color: #777;
+  color: ${props => props.theme.search.textColor};
   background: transparent;
   border: 0;
   width: 100%;
@@ -23,7 +23,7 @@ const Input = styled.input`
 `;
 
 const IconContainer = styled.div`
-  color: #b6b6b6;
+  color: ${props => props.theme.search.icon};
   padding-left: 0.3rem;
   padding-right: 1rem;
 `;

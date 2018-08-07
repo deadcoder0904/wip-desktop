@@ -9,8 +9,8 @@ const Container = styled.aside`
   top: 10rem;
   bottom: 0;
   overflow-y: scroll;
-  background: ${props => props.theme.sideBarBg};
-  width: ${props => props.theme.sideBarWidth};
+  background: ${props => props.theme.sidebar.bgColor};
+  width: ${props => props.theme.sidebar.width};
 `;
 
 export const Sidebar = ({ products }) => (

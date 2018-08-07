@@ -20,21 +20,21 @@ import { CREATE_TODO } from "../graphql/mutation/CREATE_TODO";
 import { GET_TODOS_BY_PRODUCT } from "../graphql/queries/GET_TODOS_BY_PRODUCT";
 
 const Content = styled.div`
-  background: #fff;
+  background: ${props => props.theme.global.bgColor};
   height: 100vh;
   flex: 1;
   position: absolute;
-  top: ${props => props.theme.titleBarHeight};
-  left: ${props => props.theme.sideBarWidth};
-  width: calc(100% - ${props => props.theme.sideBarWidth});
+  top: ${props => props.theme.titlebar.height};
+  left: ${props => props.theme.sidebar.width};
+  width: calc(100% - ${props => props.theme.sidebar.width});
 `;
 
 const Bg = styled.div`
   position: fixed;
   bottom: 0;
   z-index: 1;
-  background: ${props => props.theme.sideBarBg};
-  width: calc(100% - ${props => props.theme.sideBarWidth});
+  background: ${props => props.theme.sidebar.bgColor};
+  width: calc(100% - ${props => props.theme.sidebar.width});
   height: 5rem;
   display: flex;
   align-items: center;
@@ -46,13 +46,13 @@ const InputBox = styled.div`
   height: 2.5rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  background: #f7f7f7;
+  background: ${props => props.theme.addTodo.bgColor};
   width: 100%;
 `;
 
 const Input = styled.input`
   outline: none;
-  color: #777;
+  color: ${props => props.theme.addTodo.textColor};
   background: transparent;
   border: 0;
   width: 100%;
@@ -60,7 +60,7 @@ const Input = styled.input`
 `;
 
 const IconContainer = styled.div`
-  color: #cacaca;
+  color: ${props => props.theme.addTodo.textColor};
   padding-left: 1rem;
   padding-right: 1rem;
 `;
@@ -89,13 +89,15 @@ const CheckBox = styled.input`
 
 const Todo = styled.label`
   font-size: 1.6rem;
-  font-family: ${props => props.theme.fontFamily};
+  font-family: ${props => props.theme.global.fontFamily};
   font-weight: 300;
   line-height: 2;
 `;
 
 const Hashtag = styled.span`
-  border-bottom: 0.1rem solid silver;
+  color: ${props => props.theme.hashtag.textColor};
+  background: ${props => props.theme.hashtag.bgColor};
+  border-bottom: 0.1rem solid ${props => props.theme.hashtag.underlineColor};
   padding: 0.3rem;
 `;
 

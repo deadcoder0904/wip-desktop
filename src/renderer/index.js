@@ -16,7 +16,7 @@ import { client } from "../utils/stateLink";
 class App extends React.Component {
   state = {
     isLight: true,
-    theme: theme.LIGHT
+    theme: theme.DARK
   };
 
   _toggleTheme = () => {
