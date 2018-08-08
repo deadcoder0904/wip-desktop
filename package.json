@@ -1,12 +1,74 @@
 {
-  "name": "electron-webpack-quick-start",
-  "version": "0.0.0",
+  "name": "wip-desktop",
+  "description": "Desktop Application for WIP Chat",
+  "author": {
+    "email": "akshaykadam0904@gmail.com",
+    "name": "Akshay Kadam (A2K)",
+    "url": "https://akshaykadam.me"
+  },
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "dev": "electron-webpack dev",
     "compile": "electron-webpack",
-    "dist": "yarn compile && electron-builder",
-    "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null"
+    "pack": "electron-builder --dir",
+    "dist": "yarn compile && electron-builder --mac",
+    "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "main": "dist/main/main.js",
+  "build": {
+    "appId": "com.deadcoder0904.wip",
+    "productName": "WIP Desktop",
+    "copyright": "Copyright © 2018 Akshay Kadam",
+    "extends": null,
+    "dmg": {
+      "background": "./build/background@2x.png",
+      "iconSize": 100,
+      "iconTextSize": 14,
+      "contents": [
+        {
+          "x": 456,
+          "y": 195,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 196,
+          "y": 195,
+          "type": "file"
+        }
+      ],
+      "window": {
+        "width": 660,
+        "height": 460
+      }
+    },
+    "files": [
+      "dist/**/*",
+      "build/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.productivity"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb",
+        "snap",
+        "rpm"
+      ],
+      "category": "Productivity",
+      "synopsis": "Desktop App for WIP Chat"
+    },
+    "directories": {
+      "output": "release"
+    }
   },
   "electronWebpack": {
     "renderer": {
@@ -17,7 +79,7 @@
     }
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.55",
+    "@babel/runtime": "^7.0.0-beta.56",
     "apollo-cache-inmemory": "^1.3.0-beta.6",
     "apollo-client": "2.3.7",
     "apollo-link": "^1.2.2",
@@ -30,9 +92,9 @@
     "emotion-theming": "^9.2.6",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.9.2",
-    "react": "^16.4.1",
+    "react": "^16.4.2",
     "react-apollo": "^2.1.9",
-    "react-dom": "^16.4.1",
+    "react-dom": "^16.4.2",
     "react-emotion": "^9.2.6",
     "react-icons-kit": "^1.1.7",
     "react-loading": "^2.0.3",
@@ -42,18 +104,18 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.0.0-beta.55",
-    "@babel/plugin-syntax-object-rest-spread": "^7.0.0-beta.55",
-    "@babel/plugin-transform-async-to-generator": "^7.0.0-beta.55",
-    "@babel/plugin-transform-runtime": "^7.0.0-beta.55",
-    "@babel/preset-env": "^7.0.0-beta.55",
-    "@babel/preset-react": "^7.0.0-beta.51",
+    "@babel/plugin-proposal-class-properties": "^7.0.0-beta.56",
+    "@babel/plugin-syntax-object-rest-spread": "^7.0.0-beta.56",
+    "@babel/plugin-transform-async-to-generator": "^7.0.0-beta.56",
+    "@babel/plugin-transform-runtime": "^7.0.0-beta.56",
+    "@babel/preset-env": "^7.0.0-beta.56",
+    "@babel/preset-react": "^7.0.0-beta.56",
     "babel-plugin-emotion": "^9.2.6",
     "electron": "^3.0.0-beta.1",
-    "electron-builder": "^20.19.1",
+    "electron-builder": "^20.27.1",
     "electron-webpack": "^2.1.2",
     "file-loader": "^1.1.11",
-    "webpack": "^4.15.0"
+    "webpack": "^4.16.5"
   },
   "resolutions": {
     "webpack-sources": "1.0.1"

@@ -1,5 +1,6 @@
 import { app, BrowserWindow } from "electron";
 import * as path from "path";
+import { format as formatUrl } from "url";
 import { answerRenderer, callRenderer } from "electron-better-ipc";
 const isDevelopment = process.env.NODE_ENV !== "production";
 
@@ -17,7 +18,8 @@ const createMainWindow = () => {
     also setting one of minWidth or minHeight doesn't work, have to set both minWidth & minHeight
     */
     title: "WIP Desktop",
-    frame: false
+    frame: false,
+    icon: path.join(__dirname, "../../build/icon.png")
   });
 
   if (isDevelopment) {
@@ -29,7 +31,7 @@ const createMainWindow = () => {
   } else {
     window.loadURL(
       formatUrl({
-        pathname: path.join(__dirname, "index.html"),
+        pathname: path.join(__dirname, "../renderer/index.html"),
         protocol: "file",
         slashes: true
       })
