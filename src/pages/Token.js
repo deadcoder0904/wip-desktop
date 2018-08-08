@@ -15,10 +15,10 @@ import { GET_USER } from "../graphql/queries/GET_USER";
 import construction from "../static/construction.svg";
 
 const Container = styled.div`
-  position: absolute;
-  top: 75%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   height: calc(100vh - ${props => props.theme.titlebar.height});
 `;
 
