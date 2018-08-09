@@ -10,25 +10,16 @@ import { theme } from "../styles/theme";
 import { Home } from "../pages/Home";
 import { Token } from "../pages/Token";
 import { Titlebar } from "../components/Titlebar";
+import Query from "../components/Query";
 
 import { client } from "../utils/stateLink";
+import { GET_MODE } from "../graphql/queries/Local/GET_MODE";
 
-class App extends React.Component {
-  state = {
-    isLight: true,
-    theme: theme.DARK
-  };
-
-  _toggleTheme = () => {
-    const { isLight } = this.state;
-    const newTheme = isLight ? theme.DARK : theme.LIGHT;
-    this.setState({ isLight: !isLight, theme: newTheme });
-  };
-
-  render() {
-    return (
-      <ApolloProvider client={client}>
-        <ThemeProvider theme={this.state.theme}>
+const App = () => (
+  <ApolloProvider client={client}>
+    <Query query={GET_MODE}>
+      {({ data: { mode } }) => (
+        <ThemeProvider theme={theme[mode]}>
           <Global>
             <>
               <Titlebar />
@@ -41,9 +32,9 @@ class App extends React.Component {
             </>
           </Global>
         </ThemeProvider>
-      </ApolloProvider>
-    );
-  }
-}
+      )}
+    </Query>
+  </ApolloProvider>
+);
 
 render(<App />, document.querySelector("#app"));

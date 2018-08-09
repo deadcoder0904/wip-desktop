@@ -1,8 +1,7 @@
 import React from "react";
 import styled, { css } from "react-emotion";
 import { callMain, answerMain } from "electron-better-ipc";
-
-import construction from "../static/construction.svg";
+import { Mutation } from "react-apollo";
 
 import {
   Close,
@@ -12,8 +11,11 @@ import {
   Maximize,
   MaximizePressed,
   Unfocused
-} from "../components/WindowButtons/index";
-import { Logo } from "../components/Logo";
+} from "./WindowButtons/index";
+import { Moon } from "./Moon";
+import { Logo } from "./Logo";
+
+import construction from "../static/construction.svg";
 
 const Container = styled.div`
   display: flex;
@@ -130,6 +132,7 @@ export class Titlebar extends React.Component {
           <Img src={construction} />
           <Header>WIP</Header>
         </Wrapper>
+        <Moon />
       </Container>
     );
   }

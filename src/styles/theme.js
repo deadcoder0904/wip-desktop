@@ -34,6 +34,9 @@ export const theme = {
       textColor: "#111",
       bgColor: "#fff",
       underlineColor: "#aaa"
+    },
+    loading: {
+      color: "#000000"
     }
   },
   DARK: {
@@ -69,6 +72,9 @@ export const theme = {
       textColor: "#dadada",
       bgColor: "#222",
       underlineColor: "#dadada"
+    },
+    loading: {
+      color: "#ffffff"
     }
   }
 };

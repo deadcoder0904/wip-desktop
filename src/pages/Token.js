@@ -13,6 +13,7 @@ import { DELETE_TODO } from "../graphql/mutation/DELETE_TODO";
 import { GET_USER } from "../graphql/queries/GET_USER";
 
 import construction from "../static/construction.svg";
+import { withTheme } from "emotion-theming";
 
 const Container = styled.div`
   display: flex;
@@ -59,7 +60,7 @@ const Error = styled.div`
   font-size: 2rem;
 `;
 
-export class Token extends React.Component {
+class TokenContainer extends React.Component {
   state = {
     token: "",
     loading: false,
@@ -123,7 +124,9 @@ export class Token extends React.Component {
                 onChange={this._onTokenChange}
               />
               <Button onClick={() => this._onSave(client)}>Save Token</Button>
-              {loading && <Loading type="bars" />}
+              {loading && (
+                <Loading type="bars" color={this.props.theme.loading.color} />
+              )}
               {error && <Error>{error}</Error>}
             </Wrapper>
           </Container>
@@ -132,3 +135,5 @@ export class Token extends React.Component {
     );
   }
 }
+
+export const Token = withTheme(TokenContainer);

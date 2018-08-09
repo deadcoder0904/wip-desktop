@@ -11,13 +11,8 @@ import { state } from "./state";
 import { GET_SELECTED_PRODUCT } from "../graphql/mutation/Local/SWITCH_SELECTED_PRODUCT";
 import { GET_TODOS_BY_PRODUCT } from "../graphql/queries/GET_TODOS_BY_PRODUCT";
 
-const selectedProduct = state.get("selectedProduct");
 const defaultState = {
-  selectedProduct: selectedProduct || {
-    id: null,
-    name: "",
-    __typename: "SelectedProduct"
-  }
+  mode: "LIGHT"
 };
 
 const cache = new InMemoryCache();
@@ -36,14 +31,19 @@ const stateLink = withClientState({
             }
           }
         `;
-        const previous = cache.readQuery({ query });
         const data = { selectedProduct: { id, name, __typename: "Product" } };
-        state.set(data);
         cache.writeQuery({ query, data });
         return null;
       },
-      createTodo: (_, { body }, { cache }) => {
-        console.log({ body, cache });
+      switchMode: (_, { id }, { cache }) => {
+        const query = gql`
+          query getMode {
+            mode @client
+          }
+        `;
+        const previous = cache.readQuery({ query });
+        const data = { mode: previous.mode === "LIGHT" ? "DARK" : "LIGHT" };
+        cache.writeQuery({ query, data });
         return null;
       },
       getTodos: (_, { name, todos }, { cache }) => {
