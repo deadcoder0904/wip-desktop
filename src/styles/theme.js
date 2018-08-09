@@ -42,6 +42,10 @@ export const theme = {
       textColor: "#aaaaaa",
       highlightColor: "#222222",
       bgColor: "#ffffff"
+    },
+    statusIcon: {
+      doneColor: "#000000",
+      pendingColor: "#000000"
     }
   },
   DARK: {
@@ -85,6 +89,10 @@ export const theme = {
       textColor: "#aaaaaa",
       highlightColor: "#ffffff",
       bgColor: "#222222"
+    },
+    statusIcon: {
+      doneColor: "#ffffff",
+      pendingColor: "#ffffff"
     }
   }
 };
