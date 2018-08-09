@@ -49,7 +49,7 @@ export class Products extends React.Component {
     products.filter(s => s.name.toLowerCase().includes(input.toLowerCase()));
 
   render() {
-    const { input, selectedProductId } = this.state;
+    const { input } = this.state;
     const { products } = this.props;
 
     return (

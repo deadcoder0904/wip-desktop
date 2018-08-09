@@ -2,7 +2,7 @@ import React from "react";
 import styled from "react-emotion";
 import reactStringReplace from "react-string-replace";
 import { v4 } from "uuid";
-import { Mutation } from "react-apollo";
+import { Mutation, ApolloConsumer } from "react-apollo";
 
 import { Icon } from "react-icons-kit";
 import { pencil2 } from "react-icons-kit/icomoon/pencil2";
@@ -14,10 +14,10 @@ import { state } from "../utils/state";
 import Query from "../components/Query";
 import Loading from "../components/Loading";
 
-import { GET_PRODUCTS } from "../graphql/queries/GET_PRODUCTS";
-import { GET_CURRENT_USER } from "../graphql/queries/GET_CURRENT_USER";
 import { CREATE_TODO } from "../graphql/mutation/CREATE_TODO";
 import { GET_TODOS_BY_PRODUCT } from "../graphql/queries/GET_TODOS_BY_PRODUCT";
+import { GET_SELECTED_PRODUCT } from "../graphql/queries/Local/GET_SELECTED_PRODUCT";
+import { SWITCH_SELECTED_PRODUCT } from "../graphql/mutation/Local/SWITCH_SELECTED_PRODUCT";
 
 const Content = styled.div`
   background: ${props => props.theme.global.bgColor};
@@ -131,54 +131,63 @@ export class Main extends React.Component {
     const { input } = this.state;
     const { id } = this.props;
     return (
-      <Query query={GET_TODOS_BY_PRODUCT} variables={{ id }}>
-        {({ data: { product } }) => {
-          const { todos, hashtag } = product;
+      <Query query={GET_SELECTED_PRODUCT}>
+        {({ data: { selectedProduct } }) => {
           return (
-            <Content>
-              <Todos>
-                {todos.map(todo => (
-                  <TodoBox key={v4()}>
-                    <CheckBox type="checkbox" id={todo.id} />
-                    <Todo htmlFor={todo.id}>
-                      {this._getHashtag(todo.body, hashtag)}
-                    </Todo>
-                  </TodoBox>
-                ))}
-              </Todos>
-              <Bg>
-                <InputBox>
-                  <IconContainer>
-                    <Icon icon={pencil2} size={16} />
-                  </IconContainer>
-                  <Mutation
-                    mutation={CREATE_TODO}
-                    refetchQueries={[
-                      {
-                        query: GET_TODOS_BY_PRODUCT,
-                        variables: {
-                          id: state.get("selectedProduct.id")
-                        }
-                      }
-                    ]}
-                  >
-                    {mutate => (
-                      <Input
-                        placeholder="Add Todo..."
-                        value={input}
-                        onChange={this._onInputChange}
-                        onKeyPress={e => this._onKeyPress(e, mutate)}
-                      />
-                    )}
-                  </Mutation>
-                  {input !== "" && (
-                    <IconContainer onClick={this._clearInput}>
-                      <Icon icon={cross} size={8} />
-                    </IconContainer>
-                  )}
-                </InputBox>
-              </Bg>
-            </Content>
+            <Query
+              query={GET_TODOS_BY_PRODUCT}
+              variables={{ id: !selectedProduct ? id : selectedProduct.id }}
+            >
+              {({ data: { product } }) => {
+                const { todos, hashtag } = product;
+                return (
+                  <Content>
+                    <Todos>
+                      {todos.map(todo => (
+                        <TodoBox key={v4()}>
+                          <CheckBox type="checkbox" id={todo.id} />
+                          <Todo htmlFor={todo.id}>
+                            {this._getHashtag(todo.body, hashtag)}
+                          </Todo>
+                        </TodoBox>
+                      ))}
+                    </Todos>
+                    <Bg>
+                      <InputBox>
+                        <IconContainer>
+                          <Icon icon={pencil2} size={16} />
+                        </IconContainer>
+                        <Mutation
+                          mutation={CREATE_TODO}
+                          refetchQueries={[
+                            {
+                              query: GET_TODOS_BY_PRODUCT,
+                              variables: {
+                                id: !selectedProduct ? id : selectedProduct.id
+                              }
+                            }
+                          ]}
+                        >
+                          {mutate => (
+                            <Input
+                              placeholder="Add Todo..."
+                              value={input}
+                              onChange={this._onInputChange}
+                              onKeyPress={e => this._onKeyPress(e, mutate)}
+                            />
+                          )}
+                        </Mutation>
+                        {input !== "" && (
+                          <IconContainer onClick={this._clearInput}>
+                            <Icon icon={cross} size={8} />
+                          </IconContainer>
+                        )}
+                      </InputBox>
+                    </Bg>
+                  </Content>
+                );
+              }}
+            </Query>
           );
         }}
       </Query>

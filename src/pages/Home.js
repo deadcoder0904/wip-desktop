@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "react-emotion";
+import { ApolloConsumer } from "react-apollo";
 
 import { state } from "../utils/state";
 
@@ -9,6 +10,8 @@ import { Sidebar } from "../components/Sidebar";
 
 import { GET_ALL_PRODUCTS } from "../graphql/queries/GET_ALL_PRODUCTS";
 import { GET_TODOS_BY_PRODUCT } from "../graphql/queries/GET_TODOS_BY_PRODUCT";
+import { SWITCH_SELECTED_PRODUCT } from "../graphql/mutation/Local/SWITCH_SELECTED_PRODUCT";
+import Loading from "../components/Loading";
 
 const Container = styled.div`
   display: flex;
@@ -16,12 +19,7 @@ const Container = styled.div`
 `;
 
 export class Home extends React.Component {
-  state = {
-    selectedProduct: state.get("selectedProduct")
-  };
-
   render() {
-    const { selectedProduct } = this.state;
     return (
       <Container>
         <Query
@@ -29,18 +27,11 @@ export class Home extends React.Component {
           variables={{ id: state.get("user.id") }}
         >
           {({ data: { user } }) => {
-            if (!selectedProduct)
-              state.set({
-                selectedProduct: user.products ? user.products[1] : []
-              });
+            const { id, name } = user.products ? user.products[0] : [];
             return (
               <>
                 <Sidebar products={user.products} />
-                <Main
-                  id={
-                    !selectedProduct ? user.products[0].id : selectedProduct.id
-                  }
-                />
+                <Main id={id} name={name} />
               </>
             );
           }}

@@ -6,13 +6,14 @@
     "name": "Akshay Kadam (A2K)",
     "url": "https://akshaykadam.me"
   },
-  "version": "1.0.0",
+  "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "dev": "electron-webpack dev",
     "compile": "electron-webpack",
     "pack": "electron-builder --dir",
-    "dist": "yarn compile && electron-builder --mac",
+    "dist": "yarn compile && electron-builder --mac --linux --win",
+    "release": "np --no-publish",
     "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null",
     "postinstall": "electron-builder install-app-deps"
   },
@@ -115,6 +116,7 @@
     "electron-builder": "^20.27.1",
     "electron-webpack": "^2.1.2",
     "file-loader": "^1.1.11",
+    "np": "^3.0.4",
     "webpack": "^4.16.5"
   },
   "resolutions": {
