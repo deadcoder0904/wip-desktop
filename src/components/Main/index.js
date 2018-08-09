@@ -2,21 +2,16 @@ import React from "react";
 import styled from "react-emotion";
 import reactStringReplace from "react-string-replace";
 import { v4 } from "uuid";
-import { Mutation, ApolloConsumer } from "react-apollo";
-import { Icon } from "react-icons-kit";
-import { pencil2 } from "react-icons-kit/icomoon/pencil2";
-import { cross } from "react-icons-kit/icomoon/cross";
-import { checkmark2 } from "react-icons-kit/icomoon/checkmark2";
+import { Query, Mutation } from "react-apollo";
+import { withTheme } from "emotion-theming";
 
-import { Query } from "../Query";
+import { CreateTodo } from "./CreateTodo";
 import { Loading } from "../Loading/index";
-import { Status } from "../Status/index";
+import { Error } from "../Error/index";
+import { Status } from "./Status";
 
-import { CREATE_TODO } from "../../graphql/mutation/CREATE_TODO";
 import { GET_TODOS_BY_PRODUCT } from "../../graphql/queries/GET_TODOS_BY_PRODUCT";
 import { GET_SELECTED_PRODUCT } from "../../graphql/queries/Local/GET_SELECTED_PRODUCT";
-import { SWITCH_SELECTED_PRODUCT } from "../../graphql/mutation/Local/SWITCH_SELECTED_PRODUCT";
-import { GET_STATUS } from "../../graphql/queries/Local/GET_STATUS";
 
 import { state } from "../../utils/state";
 
@@ -39,31 +34,6 @@ const Bg = styled.div`
   height: 5rem;
   display: flex;
   align-items: center;
-`;
-
-const InputBox = styled.div`
-  display: flex;
-  align-items: center;
-  height: 2.5rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  background: ${props => props.theme.addTodo.bgColor};
-  width: 100%;
-`;
-
-const Input = styled.input`
-  outline: none;
-  color: ${props => props.theme.addTodo.textColor};
-  background: transparent;
-  border: 0;
-  width: 100%;
-  font-size: 1.6rem;
-`;
-
-const IconContainer = styled.div`
-  color: ${props => props.theme.addTodo.textColor};
-  padding-left: 1rem;
-  padding-right: 1rem;
 `;
 
 const Todos = styled.ul`
@@ -102,26 +72,7 @@ const Hashtag = styled.span`
   padding: 0.3rem;
 `;
 
-export class Main extends React.Component {
-  state = { input: "" };
-
-  _onInputChange = e => {
-    this.setState({ input: e.target.value });
-  };
-
-  _onKeyPress = (e, mutate) => {
-    if (e.key === "Enter") {
-      mutate({
-        variables: { body: this.state.input }
-      });
-      this._clearInput();
-    }
-  };
-
-  _clearInput = () => {
-    this.setState({ input: "" });
-  };
-
+class MainContainer extends React.Component {
   _getHashtag = (body, hashtag) => {
     return reactStringReplace(body, `#${hashtag}`, (match, i) => (
       <Hashtag key={v4()}>{match}</Hashtag>
@@ -129,17 +80,34 @@ export class Main extends React.Component {
   };
 
   render() {
-    const { input } = this.state;
-    const { id } = this.props;
+    const { id, theme } = this.props;
     return (
       <Query query={GET_SELECTED_PRODUCT}>
-        {({ data: { selectedProduct } }) => {
+        {({ data: { selectedProduct }, loading, error }) => {
+          if (loading)
+            return (
+              <Loading
+                color={theme.loading.color}
+                type="spinningBubbles"
+                width={100}
+                height={100}
+              />
+            );
+          if (error) return <Error err={error} />;
+          const productId = !selectedProduct ? id : selectedProduct.id;
           return (
-            <Query
-              query={GET_TODOS_BY_PRODUCT}
-              variables={{ id: !selectedProduct ? id : selectedProduct.id }}
-            >
-              {({ data: { product } }) => {
+            <Query query={GET_TODOS_BY_PRODUCT} variables={{ id: productId }}>
+              {({ data: { product }, loading, error }) => {
+                if (loading)
+                  return (
+                    <Loading
+                      color={theme.loading.color}
+                      type="spinningBubbles"
+                      width={100}
+                      height={100}
+                    />
+                  );
+                if (error) return <Error err={error} />;
                 const { todos, hashtag } = product;
                 return (
                   <Content>
@@ -155,43 +123,7 @@ export class Main extends React.Component {
                       ))}
                     </Todos>
                     <Bg>
-                      <InputBox>
-                        <IconContainer>
-                          <Icon icon={pencil2} size={16} />
-                        </IconContainer>
-                        <Query query={GET_STATUS}>
-                          {({ data: { status } }) => (
-                            <Mutation
-                              mutation={CREATE_TODO}
-                              refetchQueries={[
-                                {
-                                  query: GET_TODOS_BY_PRODUCT,
-                                  variables: {
-                                    id: !selectedProduct
-                                      ? id
-                                      : selectedProduct.id,
-                                    completed: status === "DONE"
-                                  }
-                                }
-                              ]}
-                            >
-                              {mutate => (
-                                <Input
-                                  placeholder="Add Todo..."
-                                  value={input}
-                                  onChange={this._onInputChange}
-                                  onKeyPress={e => this._onKeyPress(e, mutate)}
-                                />
-                              )}
-                            </Mutation>
-                          )}
-                        </Query>
-                        {input !== "" && (
-                          <IconContainer onClick={this._clearInput}>
-                            <Icon icon={cross} size={8} />
-                          </IconContainer>
-                        )}
-                      </InputBox>
+                      <CreateTodo id={productId} />
                     </Bg>
                   </Content>
                 );
@@ -203,3 +135,5 @@ export class Main extends React.Component {
     );
   }
 }
+
+export const Main = withTheme(MainContainer);

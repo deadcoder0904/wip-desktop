@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "react-emotion";
-import { ApolloConsumer } from "react-apollo";
+import { withTheme } from "emotion-theming";
+import { Query, ApolloConsumer } from "react-apollo";
 
-import { Query } from "../components/Query";
 import { Main } from "../components/Main/index";
 import { Sidebar } from "../components/Sidebar/index";
 import { Loading } from "../components/Loading/index";
+import { Error } from "../components/Error/index";
 
 import { GET_ALL_PRODUCTS } from "../graphql/queries/GET_ALL_PRODUCTS";
 import { GET_TODOS_BY_PRODUCT } from "../graphql/queries/GET_TODOS_BY_PRODUCT";
@@ -18,15 +19,26 @@ const Container = styled.div`
   -webkit-app-region: no-drag;
 `;
 
-export class Home extends React.Component {
+class HomeContainer extends React.Component {
   render() {
+    const { theme } = this.props;
     return (
       <Container>
         <Query
           query={GET_ALL_PRODUCTS}
           variables={{ id: state.get("user.id") }}
         >
-          {({ data: { user } }) => {
+          {({ data: { user }, loading, error }) => {
+            if (loading)
+              return (
+                <Loading
+                  color={theme.loading.color}
+                  type="bubbles"
+                  width={100}
+                  height={100}
+                />
+              );
+            if (error) return <Error err={error} />;
             const { id, name } = user.products ? user.products[0] : [];
             return (
               <>
@@ -40,3 +52,5 @@ export class Home extends React.Component {
     );
   }
 }
+
+export const Home = withTheme(HomeContainer);

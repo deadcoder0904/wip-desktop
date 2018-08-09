@@ -1,8 +1,7 @@
 import React from "react";
-import { Mutation } from "react-apollo";
+import { Mutation, Query } from "react-apollo";
 import styled from "react-emotion";
-
-import { Query } from "../Query";
+import { withTheme } from "emotion-theming";
 
 import { SWITCH_MODE } from "../../graphql/mutation/Local/SWITCH_MODE";
 import { GET_MODE } from "../../graphql/queries/Local/GET_MODE";
@@ -37,11 +36,21 @@ const modeObject = {
   }
 };
 
-export const Moon = () => (
+const MoonContainer = ({ theme }) => (
   <Mutation mutation={SWITCH_MODE}>
     {switchMode => (
       <Query query={GET_MODE}>
-        {({ data: { mode } }) => {
+        {({ data: { mode }, loading, error }) => {
+          if (loading)
+            return (
+              <Loading
+                color={theme.loading.color}
+                type="bubbles"
+                width={10}
+                height={10}
+              />
+            );
+          if (error) return <Error err={error} />;
           const { src, alt, pressed } = modeObject[mode];
           return (
             <Img
@@ -61,3 +70,5 @@ export const Moon = () => (
     )}
   </Mutation>
 );
+
+export const Moon = withTheme(MoonContainer);

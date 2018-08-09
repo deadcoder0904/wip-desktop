@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "react-emotion";
-import { Mutation } from "react-apollo";
+import { withTheme } from "emotion-theming";
+import { Mutation, Query } from "react-apollo";
 import { v4 } from "uuid";
 
-import { Query } from "../Query";
+import { Loading } from "../Loading/index";
+import { Error } from "../Error/index";
 import { SearchBar } from "../SearchBar/index";
 
 import { SWITCH_SELECTED_PRODUCT } from "../../graphql/mutation/Local/SWITCH_SELECTED_PRODUCT";
@@ -35,7 +37,7 @@ const Name = styled.div`
   font-weight: 300;
 `;
 
-export class Products extends React.Component {
+class ProductsContainer extends React.Component {
   state = { input: "" };
 
   _onInputChange = e => {
@@ -51,7 +53,7 @@ export class Products extends React.Component {
 
   render() {
     const { input } = this.state;
-    const { products } = this.props;
+    const { products, theme } = this.props;
 
     return (
       <>
@@ -61,53 +63,82 @@ export class Products extends React.Component {
           clearInput={this._clearInput}
         />
         <Query query={GET_SELECTED_PRODUCT}>
-          {({ data: { selectedProduct } }) => (
-            <Container>
-              {this._filterProducts(products, input).map((product, i) => (
-                <Query query={GET_STATUS} key={v4()}>
-                  {({ data: { status } }) => (
-                    <Mutation
-                      mutation={SWITCH_SELECTED_PRODUCT}
-                      // refetchQueries={[
-                      //   {
-                      //     query: GET_TODOS_BY_PRODUCT,
-                      //     variables: {
-                      //       id: product.id,
-                      //       completed: status === "DONE"
-                      //     }
-                      //   }
-                      // ]}
-                    >
-                      {mutate => {
-                        const highlightedProduct = selectedProduct
-                          ? product.name === selectedProduct.name
-                          : i === 0;
+          {({ data: { selectedProduct }, loading, error }) => {
+            if (loading)
+              return (
+                <Loading
+                  color={theme.loading.color}
+                  type="bubbles"
+                  width={50}
+                  height={50}
+                />
+              );
+            if (error) return <Error err={error} />;
+            return (
+              <Container>
+                {this._filterProducts(products, input).map((product, i) => (
+                  <Query query={GET_STATUS} key={v4()}>
+                    {({ data: { status } }) => {
+                      if (loading)
                         return (
-                          <Product
-                            onClick={() => {
-                              if (highlightedProduct) return;
-                              mutate({
-                                variables: {
-                                  id: product.id,
-                                  name: product.name
-                                }
-                              });
-                            }}
-                          >
-                            <Name highlight={highlightedProduct}>
-                              {product.name}
-                            </Name>
-                          </Product>
+                          <Loading
+                            color={theme.loading.color}
+                            type="bubbles"
+                            width={50}
+                            height={50}
+                          />
                         );
-                      }}
-                    </Mutation>
-                  )}
-                </Query>
-              ))}
-            </Container>
-          )}
+                      if (error) return <Error err={error} />;
+                      return (
+                        <Mutation
+                          mutation={SWITCH_SELECTED_PRODUCT}
+                          // refetchQueries={[
+                          //   {
+                          //     query: GET_TODOS_BY_PRODUCT,
+                          //     variables: {
+                          //       id: product.id,
+                          //       completed: status === "DONE"
+                          //     }
+                          //   }
+                          // ]}
+                        >
+                          {mutate => {
+                            const highlightedProduct = selectedProduct
+                              ? product.name === selectedProduct.name
+                              : i === 0;
+                            return (
+                              <Product
+                                onClick={() => {
+                                  if (highlightedProduct) return;
+                                  const selectedProduct = {
+                                    id: product.id,
+                                    name: product.name,
+                                    __typename: "Product"
+                                  };
+                                  state.set({ selectedProduct });
+                                  mutate({
+                                    variables: selectedProduct
+                                  });
+                                }}
+                              >
+                                <Name highlight={highlightedProduct}>
+                                  {product.name}
+                                </Name>
+                              </Product>
+                            );
+                          }}
+                        </Mutation>
+                      );
+                    }}
+                  </Query>
+                ))}
+              </Container>
+            );
+          }}
         </Query>
       </>
     );
   }
 }
+
+export const Products = withTheme(ProductsContainer);

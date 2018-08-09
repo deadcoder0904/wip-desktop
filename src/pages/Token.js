@@ -4,8 +4,7 @@ import gql from "graphql-tag";
 import { Redirect } from "react-router";
 import styled from "react-emotion";
 import { withTheme } from "emotion-theming";
-
-import { Loading } from "../components/Loading/index";
+import Loading from "react-loading";
 
 import { CREATE_TODO } from "../graphql/mutation/CREATE_TODO";
 import { DELETE_TODO } from "../graphql/mutation/DELETE_TODO";
@@ -111,6 +110,7 @@ class TokenContainer extends React.Component {
   render() {
     if (state.get("loggedIn")) return <Redirect to="/home" />;
     const { token, loading, error } = this.state;
+    const { theme } = this.props;
     return (
       <ApolloConsumer>
         {client => (
@@ -125,7 +125,11 @@ class TokenContainer extends React.Component {
               />
               <Button onClick={() => this._onSave(client)}>Save Token</Button>
               {loading && (
-                <Loading type="bars" color={this.props.theme.loading.color} />
+                <Loading
+                  color={theme.loading.color}
+                  type="bars"
+                  color={this.props.theme.loading.color}
+                />
               )}
               {error && <Error>{error}</Error>}
             </Wrapper>

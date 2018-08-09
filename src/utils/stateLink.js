@@ -13,7 +13,7 @@ import { GET_TODOS_BY_PRODUCT } from "../graphql/queries/GET_TODOS_BY_PRODUCT";
 
 const defaultState = {
   mode: state.get("theme") || "LIGHT",
-  status: state.get("status") || "DONE",
+  status: state.get("status") || "PENDING",
   selectedProduct: state.get("selectedProduct") || null
 };
 
