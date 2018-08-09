@@ -5,7 +5,9 @@ import { Mutation } from "react-apollo";
 import { Query } from "../Query";
 
 import { GET_STATUS } from "../../graphql/queries/Local/GET_STATUS";
-import { SWITCH_STATUS } from "../../graphql/mutation/Local/SWITCH_STATUS";
+import { SET_STATUS } from "../../graphql/mutation/Local/SET_STATUS";
+
+import { state } from "../../utils/state";
 
 const Wrapper = styled.div`
   display: flex;
@@ -34,14 +36,32 @@ const Btn = styled.button`
 export const Status = () => (
   <Query query={GET_STATUS}>
     {({ data: { status } }) => (
-      <Mutation mutation={SWITCH_STATUS}>
-        {switchStatus => (
+      <Mutation mutation={SET_STATUS}>
+        {setStatus => (
           <Wrapper>
-            <Btn onClick={switchStatus} highlight={status === "DONE"}>
-              Done
-            </Btn>
-            <Btn onClick={switchStatus} highlight={status === "PENDING"}>
+            <Btn
+              onClick={() => {
+                const status = "PENDING";
+                setStatus({ variables: { status } });
+                state.set({
+                  status
+                });
+              }}
+              highlight={status === "PENDING"}
+            >
               Pending
+            </Btn>
+            <Btn
+              onClick={() => {
+                const status = "DONE";
+                setStatus({ variables: { status } });
+                state.set({
+                  status
+                });
+              }}
+              highlight={status === "DONE"}
+            >
+              Done
             </Btn>
           </Wrapper>
         )}

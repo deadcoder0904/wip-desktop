@@ -13,8 +13,8 @@ import { GET_TODOS_BY_PRODUCT } from "../graphql/queries/GET_TODOS_BY_PRODUCT";
 
 const defaultState = {
   mode: state.get("theme") || "LIGHT",
-  status: "DONE",
-  selectedProduct: null
+  status: state.get("status") || "DONE",
+  selectedProduct: state.get("selectedProduct") || null
 };
 
 const cache = new InMemoryCache();
@@ -48,15 +48,14 @@ const stateLink = withClientState({
         cache.writeQuery({ query, data });
         return null;
       },
-      switchStatus: (_, { id }, { cache }) => {
+      setStatus: (_, { status }, { cache }) => {
         const query = gql`
           query getStatus {
             status @client
           }
         `;
-        const previous = cache.readQuery({ query });
         const data = {
-          status: previous.status === "DONE" ? "PENDING" : "DONE"
+          status
         };
         cache.writeQuery({ query, data });
         return null;
