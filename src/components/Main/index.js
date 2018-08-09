@@ -3,21 +3,22 @@ import styled from "react-emotion";
 import reactStringReplace from "react-string-replace";
 import { v4 } from "uuid";
 import { Mutation, ApolloConsumer } from "react-apollo";
-
 import { Icon } from "react-icons-kit";
 import { pencil2 } from "react-icons-kit/icomoon/pencil2";
 import { cross } from "react-icons-kit/icomoon/cross";
 import { checkmark2 } from "react-icons-kit/icomoon/checkmark2";
 
-import { state } from "../utils/state";
+import { Query } from "../Query";
+import { Loading } from "../Loading/index";
+import { Status } from "../Status/index";
 
-import Query from "../components/Query";
-import Loading from "../components/Loading";
+import { CREATE_TODO } from "../../graphql/mutation/CREATE_TODO";
+import { GET_TODOS_BY_PRODUCT } from "../../graphql/queries/GET_TODOS_BY_PRODUCT";
+import { GET_SELECTED_PRODUCT } from "../../graphql/queries/Local/GET_SELECTED_PRODUCT";
+import { SWITCH_SELECTED_PRODUCT } from "../../graphql/mutation/Local/SWITCH_SELECTED_PRODUCT";
+import { GET_STATUS } from "../../graphql/queries/Local/GET_STATUS";
 
-import { CREATE_TODO } from "../graphql/mutation/CREATE_TODO";
-import { GET_TODOS_BY_PRODUCT } from "../graphql/queries/GET_TODOS_BY_PRODUCT";
-import { GET_SELECTED_PRODUCT } from "../graphql/queries/Local/GET_SELECTED_PRODUCT";
-import { SWITCH_SELECTED_PRODUCT } from "../graphql/mutation/Local/SWITCH_SELECTED_PRODUCT";
+import { state } from "../../utils/state";
 
 const Content = styled.div`
   background: ${props => props.theme.global.bgColor};
@@ -142,6 +143,7 @@ export class Main extends React.Component {
                 const { todos, hashtag } = product;
                 return (
                   <Content>
+                    <Status />
                     <Todos>
                       {todos.map(todo => (
                         <TodoBox key={v4()}>
@@ -157,26 +159,33 @@ export class Main extends React.Component {
                         <IconContainer>
                           <Icon icon={pencil2} size={16} />
                         </IconContainer>
-                        <Mutation
-                          mutation={CREATE_TODO}
-                          refetchQueries={[
-                            {
-                              query: GET_TODOS_BY_PRODUCT,
-                              variables: {
-                                id: !selectedProduct ? id : selectedProduct.id
-                              }
-                            }
-                          ]}
-                        >
-                          {mutate => (
-                            <Input
-                              placeholder="Add Todo..."
-                              value={input}
-                              onChange={this._onInputChange}
-                              onKeyPress={e => this._onKeyPress(e, mutate)}
-                            />
+                        <Query query={GET_STATUS}>
+                          {({ data: { status } }) => (
+                            <Mutation
+                              mutation={CREATE_TODO}
+                              refetchQueries={[
+                                {
+                                  query: GET_TODOS_BY_PRODUCT,
+                                  variables: {
+                                    id: !selectedProduct
+                                      ? id
+                                      : selectedProduct.id,
+                                    completed: status === "DONE"
+                                  }
+                                }
+                              ]}
+                            >
+                              {mutate => (
+                                <Input
+                                  placeholder="Add Todo..."
+                                  value={input}
+                                  onChange={this._onInputChange}
+                                  onKeyPress={e => this._onKeyPress(e, mutate)}
+                                />
+                              )}
+                            </Mutation>
                           )}
-                        </Mutation>
+                        </Query>
                         {input !== "" && (
                           <IconContainer onClick={this._clearInput}>
                             <Icon icon={cross} size={8} />

@@ -37,6 +37,11 @@ export const theme = {
     },
     loading: {
       color: "#000000"
+    },
+    status: {
+      textColor: "#aaaaaa",
+      highlightColor: "#222222",
+      bgColor: "#ffffff"
     }
   },
   DARK: {
@@ -75,6 +80,11 @@ export const theme = {
     },
     loading: {
       color: "#ffffff"
+    },
+    status: {
+      textColor: "#aaaaaa",
+      highlightColor: "#ffffff",
+      bgColor: "#222222"
     }
   }
 };

@@ -3,17 +3,17 @@ import { ApolloConsumer } from "react-apollo";
 import gql from "graphql-tag";
 import { Redirect } from "react-router";
 import styled from "react-emotion";
+import { withTheme } from "emotion-theming";
 
-import { state } from "../utils/state";
-
-import Loading from "../components/Loading";
+import { Loading } from "../components/Loading/index";
 
 import { CREATE_TODO } from "../graphql/mutation/CREATE_TODO";
 import { DELETE_TODO } from "../graphql/mutation/DELETE_TODO";
 import { GET_USER } from "../graphql/queries/GET_USER";
 
+import { state } from "../utils/state";
+
 import construction from "../static/construction.svg";
-import { withTheme } from "emotion-theming";
 
 const Container = styled.div`
   display: flex;

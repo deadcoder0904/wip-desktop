@@ -9,8 +9,8 @@ import { theme } from "../styles/theme";
 
 import { Home } from "../pages/Home";
 import { Token } from "../pages/Token";
-import { Titlebar } from "../components/Titlebar";
-import Query from "../components/Query";
+import { Titlebar } from "../components/Titlebar/index";
+import { Query } from "../components/Query";
 
 import { client } from "../utils/stateLink";
 import { GET_MODE } from "../graphql/queries/Local/GET_MODE";

@@ -12,7 +12,9 @@ import { GET_SELECTED_PRODUCT } from "../graphql/mutation/Local/SWITCH_SELECTED_
 import { GET_TODOS_BY_PRODUCT } from "../graphql/queries/GET_TODOS_BY_PRODUCT";
 
 const defaultState = {
-  mode: "LIGHT"
+  mode: "LIGHT",
+  status: "DONE",
+  selectedProduct: null
 };
 
 const cache = new InMemoryCache();
@@ -43,6 +45,19 @@ const stateLink = withClientState({
         `;
         const previous = cache.readQuery({ query });
         const data = { mode: previous.mode === "LIGHT" ? "DARK" : "LIGHT" };
+        cache.writeQuery({ query, data });
+        return null;
+      },
+      switchStatus: (_, { id }, { cache }) => {
+        const query = gql`
+          query getStatus {
+            status @client
+          }
+        `;
+        const previous = cache.readQuery({ query });
+        const data = {
+          status: previous.status === "DONE" ? "PENDING" : "DONE"
+        };
         cache.writeQuery({ query, data });
         return null;
       },

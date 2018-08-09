@@ -2,13 +2,13 @@ import React from "react";
 import { Mutation } from "react-apollo";
 import styled from "react-emotion";
 
-import Query from "./Query";
+import { Query } from "../Query";
 
-import { SWITCH_MODE } from "../graphql/mutation/Local/SWITCH_MODE";
-import { GET_MODE } from "../graphql/queries/Local/GET_MODE";
+import { SWITCH_MODE } from "../../graphql/mutation/Local/SWITCH_MODE";
+import { GET_MODE } from "../../graphql/queries/Local/GET_MODE";
 
-import DARK_MOON from "../static/dark_moon.svg";
-import LIGHT_MOON from "../static/light_moon.svg";
+import DARK_MOON from "../../static/dark_moon.svg";
+import LIGHT_MOON from "../../static/light_moon.svg";
 
 const Img = styled.img`
   width: 2.5rem;

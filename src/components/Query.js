@@ -1,10 +1,11 @@
 import React from "react";
-import { Query } from "react-apollo";
-import Loading from "./Loading";
+import { Query as RAQuery } from "react-apollo";
 
-const ModifiedQuery = ({ children, ...props }) => {
+import { Loading } from "./Loading/index";
+
+export const Query = ({ children, ...props }) => {
   return (
-    <Query {...props}>
+    <RAQuery {...props}>
       {({ loading, error, data, fetchMore, client }) => {
         if (loading) {
           return <Loading type="bars" width={100} height={100} />;
@@ -16,8 +17,6 @@ const ModifiedQuery = ({ children, ...props }) => {
           client
         });
       }}
-    </Query>
+    </RAQuery>
   );
 };
-
-export default ModifiedQuery;

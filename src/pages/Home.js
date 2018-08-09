@@ -2,16 +2,16 @@ import React from "react";
 import styled from "react-emotion";
 import { ApolloConsumer } from "react-apollo";
 
-import { state } from "../utils/state";
-
-import Query from "../components/Query";
-import { Main } from "../components/Main";
-import { Sidebar } from "../components/Sidebar";
+import { Query } from "../components/Query";
+import { Main } from "../components/Main/index";
+import { Sidebar } from "../components/Sidebar/index";
+import { Loading } from "../components/Loading/index";
 
 import { GET_ALL_PRODUCTS } from "../graphql/queries/GET_ALL_PRODUCTS";
 import { GET_TODOS_BY_PRODUCT } from "../graphql/queries/GET_TODOS_BY_PRODUCT";
 import { SWITCH_SELECTED_PRODUCT } from "../graphql/mutation/Local/SWITCH_SELECTED_PRODUCT";
-import Loading from "../components/Loading";
+
+import { state } from "../utils/state";
 
 const Container = styled.div`
   display: flex;

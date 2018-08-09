@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "react-emotion";
 
-import { Products } from "./Products";
-import { Logo } from "./Logo";
+import { Products } from "../Products/index";
+import { Logo } from "../Logo/index";
 
 const Container = styled.aside`
   position: fixed;

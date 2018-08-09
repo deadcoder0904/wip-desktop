@@ -13,9 +13,9 @@ import {
   Unfocused
 } from "./WindowButtons/index";
 import { Moon } from "./Moon";
-import { Logo } from "./Logo";
+import { Logo } from "../Logo/index";
 
-import construction from "../static/construction.svg";
+import construction from "../../static/construction.svg";
 
 const Container = styled.div`
   display: flex;
@@ -31,30 +31,6 @@ const ButtonStyle = css`
   -webkit-app-region: no-drag;
   margin: 0.2rem;
   z-index: 1;
-`;
-
-const Wrapper = styled.div`
-  flex: 1;
-  display: flex;
-  background: ${props => props.theme.titlebar.bgColor};
-  justify-content: center;
-  padding: 0.5rem;
-  position: absolute;
-  width: 100%;
-`;
-
-const Img = styled.img`
-  width: 2rem;
-  height: 2rem;
-  padding-right: 0.5rem;
-`;
-
-const Header = styled.h1`
-  padding: 0;
-  margin: 0;
-  font-size: 1.6rem;
-  font-family: ${props => props.theme.global.fontFamily};
-  font-weight: 300;
 `;
 
 export class Titlebar extends React.Component {
@@ -128,10 +104,6 @@ export class Titlebar extends React.Component {
           onMouseEnter={this._toggleIcons}
           onMouseLeave={this._toggleIcons}
         />
-        <Wrapper>
-          <Img src={construction} />
-          <Header>WIP</Header>
-        </Wrapper>
         <Moon />
       </Container>
     );

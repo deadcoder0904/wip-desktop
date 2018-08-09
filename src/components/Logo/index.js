@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "react-emotion";
-import construction from "../static/construction.svg";
+
+import construction from "../../static/construction.svg";
 
 const Bg = styled.div`
   position: fixed;
