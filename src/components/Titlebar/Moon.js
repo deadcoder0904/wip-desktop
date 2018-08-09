@@ -7,6 +7,8 @@ import { Query } from "../Query";
 import { SWITCH_MODE } from "../../graphql/mutation/Local/SWITCH_MODE";
 import { GET_MODE } from "../../graphql/queries/Local/GET_MODE";
 
+import { state } from "../../utils/state";
+
 import DARK_MOON from "../../static/dark_moon.svg";
 import LIGHT_MOON from "../../static/light_moon.svg";
 
@@ -25,12 +27,12 @@ const Img = styled.img`
 const modeObject = {
   DARK: {
     src: LIGHT_MOON,
-    alt: "enable light mode",
+    alt: "Enable Light mode",
     pressed: "false"
   },
   LIGHT: {
     src: DARK_MOON,
-    alt: "enable dark mode",
+    alt: "Enable Dark mode",
     pressed: "true"
   }
 };
@@ -46,7 +48,10 @@ export const Moon = () => (
               role="button"
               aria-pressed={pressed}
               title={alt}
-              onClick={switchMode}
+              onClick={() => {
+                switchMode();
+                state.set({ theme: mode === "LIGHT" ? "DARK" : "LIGHT" });
+              }}
               src={src}
               alt={alt}
             />

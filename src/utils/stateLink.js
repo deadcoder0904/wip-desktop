@@ -12,7 +12,7 @@ import { GET_SELECTED_PRODUCT } from "../graphql/mutation/Local/SWITCH_SELECTED_
 import { GET_TODOS_BY_PRODUCT } from "../graphql/queries/GET_TODOS_BY_PRODUCT";
 
 const defaultState = {
-  mode: "LIGHT",
+  mode: state.get("theme") || "LIGHT",
   status: "DONE",
   selectedProduct: null
 };
