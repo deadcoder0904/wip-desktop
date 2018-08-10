@@ -9,7 +9,9 @@ export const GET_TODOS_BY_PRODUCT = gql`
     product(id: $id) {
       hashtag
       todos(completed: $completed, limit: $limit) {
+        id
         body
+        completed_at
       }
     }
   }

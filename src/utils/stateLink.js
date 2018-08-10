@@ -59,14 +59,6 @@ const stateLink = withClientState({
         };
         cache.writeQuery({ query, data });
         return null;
-      },
-      getTodos: (_, { name, todos }, { cache }) => {
-        const query = GET_TODOS;
-        const previous = cache.readQuery({ query });
-        const data = { todos };
-        store.set(`${name}.todos`, todos);
-        cache.writeQuery({ query, data });
-        return null;
       }
     }
   }

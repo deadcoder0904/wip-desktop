@@ -16,6 +16,8 @@ import { Status } from "./Status";
 import { GET_TODOS_BY_PRODUCT } from "../../graphql/queries/GET_TODOS_BY_PRODUCT";
 import { GET_SELECTED_PRODUCT } from "../../graphql/queries/Local/GET_SELECTED_PRODUCT";
 import { GET_STATUS } from "../../graphql/queries/Local/GET_STATUS";
+import { COMPLETE_TODO } from "../../graphql/mutation/COMPLETE_TODO";
+import { UNCOMPLETE_TODO } from "../../graphql/mutation/UNCOMPLETE_TODO";
 
 import { state } from "../../utils/state";
 
@@ -118,21 +120,33 @@ class MainContainer extends React.Component {
                         <Status />
                         <Todos>
                           {todos.map(todo => (
-                            <TodoBox key={v4()}>
-                              <StatusIcon
-                                id={todo.id}
-                                icon={completed ? checkmark : cross}
-                                color={
-                                  completed
-                                    ? theme.statusIcon.doneColor
-                                    : theme.statusIcon.pendingColor
-                                }
-                                size={16}
-                              />
-                              <Todo htmlFor={todo.id}>
-                                {this._getHashtag(todo.body, hashtag)}
-                              </Todo>
-                            </TodoBox>
+                            <Mutation
+                              key={v4()}
+                              mutation={
+                                completed ? UNCOMPLETE_TODO : COMPLETE_TODO
+                              }
+                            >
+                              {mutate => (
+                                <TodoBox
+                                  onClick={() => {
+                                    mutate({ variables: { id: todo.id } });
+                                  }}
+                                >
+                                  <StatusIcon
+                                    icon={completed ? checkmark : cross}
+                                    color={
+                                      completed
+                                        ? theme.statusIcon.doneColor
+                                        : theme.statusIcon.pendingColor
+                                    }
+                                    size={16}
+                                  />
+                                  <Todo>
+                                    {this._getHashtag(todo.body, hashtag)}
+                                  </Todo>
+                                </TodoBox>
+                              )}
+                            </Mutation>
                           ))}
                         </Todos>
                         <Bg>

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "react-emotion";
 import { withTheme } from "emotion-theming";
 import { Mutation, Query } from "react-apollo";
+import { v4 } from "uuid";
 import { Icon } from "react-icons-kit";
 import { pencil2 } from "react-icons-kit/icomoon/pencil2";
 import { cross } from "react-icons-kit/icomoon/cross";
@@ -49,7 +50,10 @@ class CreateTodoContainer extends React.Component {
   _onKeyPress = (e, mutate) => {
     if (e.key === "Enter") {
       mutate({
-        variables: { body: this.state.input }
+        variables: {
+          body: this.state.input,
+          completedAt: status === "DONE" ? new Date().toISOString() : null
+        }
       });
       this._clearInput();
     }
@@ -83,15 +87,33 @@ class CreateTodoContainer extends React.Component {
             return (
               <Mutation
                 mutation={CREATE_TODO}
-                refetchQueries={[
-                  {
-                    query: GET_TODOS_BY_PRODUCT,
-                    variables: {
-                      id,
-                      completed: status === "DONE"
-                    }
+                optimisticResponse={{
+                  __typename: "Mutation",
+                  createTodo: {
+                    __typename: "Todo",
+                    id: v4(),
+                    body: input,
+                    completed_at:
+                      status === "DONE" ? new Date().toISOString() : null
                   }
-                ]}
+                }}
+                update={(cache, { data: { createTodo } }) => {
+                  const data = cache.readQuery({
+                    query: GET_TODOS_BY_PRODUCT,
+                    variables: { id, completed: status === "DONE" }
+                  });
+                  const todos = data.product.todos.map(t => t); // make a shallow copy otherwise error "Object is not extensible" is thrown
+                  todos.push(createTodo);
+                  const newData = {
+                    ...data,
+                    product: { ...data.product, todos }
+                  };
+                  cache.writeQuery({
+                    query: GET_TODOS_BY_PRODUCT,
+                    variables: { id, completed: status === "DONE" },
+                    data: newData
+                  });
+                }}
               >
                 {mutate => (
                   <Input
