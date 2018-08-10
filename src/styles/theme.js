@@ -27,7 +27,7 @@ export const theme = {
     sidebar: {
       textColor: "#aaa",
       highlightColor: "#111",
-      bgColor: "#fcfcfc",
+      bgColor: "#f9f9f9",
       width: "25rem"
     },
     hashtag: {
