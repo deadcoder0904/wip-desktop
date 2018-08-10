@@ -66,8 +66,7 @@
       "target": [
         "AppImage",
         "deb",
-        "snap",
-        "rpm"
+        "snap"
       ],
       "category": "Productivity",
       "synopsis": "Desktop App for WIP Chat"
