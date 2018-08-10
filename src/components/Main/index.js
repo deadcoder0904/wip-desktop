@@ -69,6 +69,8 @@ const Hashtag = styled.span`
 
 const StatusIcon = styled(Icon)`
   padding-right: 1rem;
+  padding-top: 0.8rem;
+  align-self: flex-start;
 `;
 
 class MainContainer extends React.Component {
