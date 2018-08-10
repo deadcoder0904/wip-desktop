@@ -27,9 +27,9 @@ const Btn = styled.button`
   padding: 1rem;
   margin: 0.5rem;
   flex: 1;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-family: ${props => props.theme.fontFamily};
-  font-weight: 300;
+  font-weight: ${props => (props.highlight ? 400 : 300)};
   &:focus {
     outline: none;
   }
