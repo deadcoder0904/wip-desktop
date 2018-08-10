@@ -6,6 +6,11 @@
     "name": "Akshay Kadam (A2K)",
     "url": "https://akshaykadam.me"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deadcoder0904/wip-desktop.git"
+  },
+  "homepage": "https://akshaykadam.me/apps/wip-desktop",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
