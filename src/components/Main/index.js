@@ -115,6 +115,9 @@ class MainContainer extends React.Component {
                       );
                     if (error) return <Error err={error} />;
                     const { todos, hashtag } = product;
+                    const completed_at = completed
+                      ? new Date().toISOString()
+                      : null;
                     return (
                       <Content>
                         <Status />
@@ -125,6 +128,86 @@ class MainContainer extends React.Component {
                               mutation={
                                 completed ? UNCOMPLETE_TODO : COMPLETE_TODO
                               }
+                              optimisticResponse={{
+                                __typename: "Mutation",
+                                [completed
+                                  ? "uncompleteTodo"
+                                  : "completeTodo"]: {
+                                  __typename: "Todo",
+                                  id: todo.id,
+                                  body: todo.body,
+                                  completed_at
+                                }
+                              }}
+                              update={(cache, { data }) => {
+                                // remove todo item from current status ,i.e, PENDING or DONE
+                                const cacheData1 = cache.readQuery({
+                                  query: GET_TODOS_BY_PRODUCT,
+                                  variables: {
+                                    id: productId,
+                                    completed
+                                  }
+                                });
+
+                                const todos1 = cacheData1.product.todos.filter(
+                                  t => t.id !== todo.id
+                                ); // make a shallow copy otherwise error "Object is not extensible" is thrown
+
+                                const newData1 = {
+                                  ...cacheData1,
+                                  product: {
+                                    ...cacheData1.product,
+                                    todos: todos1
+                                  }
+                                };
+
+                                cache.writeQuery({
+                                  query: GET_TODOS_BY_PRODUCT,
+                                  variables: {
+                                    id: productId,
+                                    completed
+                                  },
+                                  data: newData1
+                                });
+
+                                // add todo item to current status ,i.e, PENDING or DONE
+                                const cacheData2 = cache.readQuery({
+                                  query: GET_TODOS_BY_PRODUCT,
+                                  variables: {
+                                    id: productId,
+                                    completed: status !== "DONE"
+                                  }
+                                });
+
+                                const todos2 = cacheData2.product.todos.map(
+                                  t => t
+                                ); // make a shallow copy otherwise error "Object is not extensible" is thrown
+                                todos2.push({
+                                  ...data[
+                                    completed
+                                      ? "uncompleteTodo"
+                                      : "completeTodo"
+                                  ],
+                                  id: todo.id,
+                                  completed_at
+                                });
+                                const newData2 = {
+                                  ...cacheData2,
+                                  product: {
+                                    ...cacheData2.product,
+                                    todos: todos2
+                                  }
+                                };
+
+                                cache.writeQuery({
+                                  query: GET_TODOS_BY_PRODUCT,
+                                  variables: {
+                                    id: productId,
+                                    completed: status !== "DONE"
+                                  },
+                                  data: newData2
+                                });
+                              }}
                             >
                               {mutate => (
                                 <TodoBox
