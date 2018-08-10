@@ -90,18 +90,7 @@ class ProductsContainer extends React.Component {
                         );
                       if (error) return <Error err={error} />;
                       return (
-                        <Mutation
-                          mutation={SWITCH_SELECTED_PRODUCT}
-                          // refetchQueries={[
-                          //   {
-                          //     query: GET_TODOS_BY_PRODUCT,
-                          //     variables: {
-                          //       id: product.id,
-                          //       completed: status === "DONE"
-                          //     }
-                          //   }
-                          // ]}
-                        >
+                        <Mutation mutation={SWITCH_SELECTED_PRODUCT}>
                           {mutate => {
                             const highlightedProduct = selectedProduct
                               ? product.name === selectedProduct.name

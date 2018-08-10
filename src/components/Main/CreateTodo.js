@@ -47,7 +47,7 @@ class CreateTodoContainer extends React.Component {
     this.setState({ input: e.target.value });
   };
 
-  _onKeyPress = (e, mutate) => {
+  _onKeyPress = (e, mutate, status) => {
     if (e.key === "Enter") {
       mutate({
         variables: {
@@ -120,7 +120,7 @@ class CreateTodoContainer extends React.Component {
                     placeholder="Add Todo..."
                     value={input}
                     onChange={this._onInputChange}
-                    onKeyPress={e => this._onKeyPress(e, mutate)}
+                    onKeyPress={e => this._onKeyPress(e, mutate, status)}
                   />
                 )}
               </Mutation>
