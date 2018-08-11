@@ -1,5 +1,6 @@
 {
-  "name": "WIP Desktop",
+  "name": "wip-desktop",
+  "productName": "WIP Desktop",
   "description": "Desktop Application for WIP Chat",
   "author": {
     "email": "akshaykadam0904@gmail.com",
@@ -25,7 +26,6 @@
   "main": "dist/main/main.js",
   "build": {
     "appId": "com.deadcoder0904.wip",
-    "productName": "WIP Desktop",
     "copyright": "Copyright © 2018 Akshay Kadam",
     "extends": null,
     "dmg": {
