@@ -10,7 +10,6 @@
     "type": "git",
     "url": "https://github.com/deadcoder0904/wip-desktop.git"
   },
-  "private": true,
   "homepage": "https://akshaykadam.me/apps/wip-desktop",
   "version": "1.0.0",
   "license": "MIT",
@@ -18,11 +17,11 @@
     "dev": "electron-webpack dev",
     "compile": "electron-webpack",
     "pack": "electron-builder --dir",
-    "dist": "npm run compile && electron-builder --mac --linux --win",
-    "release": "np --yolo --no-publish",
+    "dist": "npm run compile && electron-builder --mac --linux --win --publish always",
     "dist:dir": "npm run dist --dir -c.compression=store -c.mac.identity=null",
     "postinstall": "electron-builder install-app-deps"
   },
+  "releaseType": "release",
   "main": "dist/main/main.js",
   "build": {
     "appId": "com.deadcoder0904.wip",
@@ -124,7 +123,6 @@
     "electron-builder": "^20.27.1",
     "electron-webpack": "^2.1.2",
     "file-loader": "^1.1.11",
-    "np": "^3.0.4",
     "webpack": "^4.16.5"
   },
   "resolutions": {
