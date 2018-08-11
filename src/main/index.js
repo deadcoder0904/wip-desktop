@@ -2,12 +2,11 @@ import { app, BrowserWindow, Menu, shell } from "electron";
 import * as path from "path";
 import { format as formatUrl } from "url";
 import { answerRenderer, callRenderer } from "electron-better-ipc";
-import { autoUpdater } from "electron-updater";
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 import { createMenu } from "./menu";
 import { createMainWindow } from "./createWindow";
-// import { electronUpdater } from "./autoUpdater";
+import { AppUpdater } from "./autoUpdater";
 
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
 let mainWindow;
@@ -31,8 +30,7 @@ app.on("activate", () => {
 app.on("ready", () => {
   mainWindow = createMainWindow(mainWindow);
   createMenu();
-  // electronUpdater(mainWindow);
-  autoUpdater.checkForUpdatesAndNotify();
+  new AppUpdater();
 });
 
 answerRenderer("app-quit", () => {
