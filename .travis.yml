@@ -1,6 +1,9 @@
 os: osx
 osx_image: xcode9.4
 language: node_js
-node_js: "8"
+node_js: '8'
 script:
-  - npm run dist
+- npm run dist
+env:
+  global:
+    secure: UT7CxWYii6S9AKV0EaQFxfqvpxE81fMUFCMu2pa2xGbpbxUJ/QqRppDy5gguR9qrmQfpgNSvaX3Kwz+AZm42VmMEzrnee6Zvei9o0H2WCniHyjWxgyolTaaWgG+NOBOn6E++h8SXCVM8hnqZE1EpCS28ZW4kz/1msBKc5w9O1M3Ad4i73kAUbVwjKsPSb1d14or3MS0XRrWOyyqpT7gHvP7HrwoAhWiFSVVsNeF6DzzGtAP708O9G96fKQmnN3g7z0aV50myhPWuZifuf/pdaDAqA+f7OkmK4p1AbmEgL7Vq5pOZcvcLkT+tzQnHwyWdzQRkVLS9U6r5F/vfIX+AZOP4V9ddawCRt+nHF2+i0vbB+UmeDWT1n1VoFO50oAlp/YtYHxDLHcecxut7uc/oMXSxyemr1QU9bdfzc271POqYvBwt2Eud1Y63/Feds5/jI0ebZZmXQRLHSad5G0XY+9ppfFX9wYQ217tP3cAh+5rOSgutyDeAF9DmrXSI5lt2BNhxqBVpW8tp7QYMlTTnNMBUVULja8VXUKGrTEvbpZezlyO7pdFeWA7o9VcFyJin1PRfy/sSlBLmHA651D+JmiZP9M37VqFjOR7+QVxnAc+m2kh1U76e4LGX/PuMuRBgkt5IZTmAG/NbHY+gzhw/cGJYC5vLaR3tj2+SnUnZT2c=
