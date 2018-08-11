@@ -7,7 +7,7 @@ const isDevelopment = process.env.NODE_ENV !== "production";
 
 import { createMenu } from "./menu";
 import { createMainWindow } from "./createWindow";
-import { electronUpdater } from "./autoUpdater";
+// import { electronUpdater } from "./autoUpdater";
 
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
 let mainWindow;
@@ -31,7 +31,7 @@ app.on("activate", () => {
 app.on("ready", () => {
   mainWindow = createMainWindow(mainWindow);
   createMenu();
-  electronUpdater(mainWindow);
+  // electronUpdater(mainWindow);
   autoUpdater.checkForUpdatesAndNotify();
 });
 
