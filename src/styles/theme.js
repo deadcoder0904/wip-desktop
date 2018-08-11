@@ -8,7 +8,7 @@ export const theme = {
       fontFamily
     },
     titlebar: {
-      bgColor: "antiquewhite",
+      bgColor: "#f9f9f9",
       height: "2.5rem"
     },
     navbar: {
