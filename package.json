@@ -12,7 +12,7 @@
   },
   "private": true,
   "homepage": "https://akshaykadam.me/apps/wip-desktop",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "dev": "electron-webpack dev",
