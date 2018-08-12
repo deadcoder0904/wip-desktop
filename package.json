@@ -12,7 +12,7 @@
     "url": "https://github.com/deadcoder0904/wip-desktop.git"
   },
   "homepage": "https://akshaykadam.me/apps/wip-desktop",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "license": "MIT",
   "scripts": {
     "lint": "eslint src/",
