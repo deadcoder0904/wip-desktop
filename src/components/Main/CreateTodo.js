@@ -12,7 +12,6 @@ import { Error } from "../Error/index";
 
 import { GET_TODOS_BY_PRODUCT } from "../../graphql/queries/GET_TODOS_BY_PRODUCT";
 import { CREATE_TODO } from "../../graphql/mutation/CREATE_TODO";
-import { SWITCH_SELECTED_PRODUCT } from "../../graphql/mutation/Local/SWITCH_SELECTED_PRODUCT";
 import { GET_STATUS } from "../../graphql/queries/Local/GET_STATUS";
 
 const InputBox = styled.div`

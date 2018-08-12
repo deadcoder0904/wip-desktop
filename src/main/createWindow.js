@@ -2,6 +2,7 @@ import { BrowserWindow } from "electron";
 import * as path from "path";
 import { format as formatUrl } from "url";
 import { callRenderer } from "electron-better-ipc";
+
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 export const createMainWindow = mainWindow => {
@@ -10,7 +11,7 @@ export const createMainWindow = mainWindow => {
     height: 768,
     minWidth: 1024,
     minHeight: 768,
-    /* 
+    /*
     only setting minWidth or minHeight doesn't work, have to set width & height too
     also setting one of minWidth or minHeight doesn't work, have to set both minWidth & minHeight
     */

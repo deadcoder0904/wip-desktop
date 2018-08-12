@@ -1,0 +1,25 @@
+{
+  "extends": ["airbnb", "eslint:recommended", "plugin:react/recommended"],
+  "parser": "babel-eslint",
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "error",
+    "quotes": [
+      "error",
+      "double",
+      {
+        "avoidEscape": true,
+        "allowTemplateLiterals": true
+      }
+    ],
+    "import/prefer-default-export": "off",
+    "no-console": "off",
+    "no-undef": "off",
+    "no-unused-vars": "off",
+    "react/prop-types": "off",
+    "react/jsx-filename-extension": "off",
+    "react/jsx-indent-props": "off",
+    "import/no-extraneous-dependencies": "off",
+    "no-useless-escape": "off"
+  }
+}

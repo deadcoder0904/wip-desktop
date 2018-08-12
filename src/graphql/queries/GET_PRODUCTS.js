@@ -6,9 +6,9 @@ export const GET_PRODUCTS = gql`
       products {
         name
         website_url
-				todos(limit: $limit, offset: $offset) {
-					body
-				}
+        todos(limit: $limit, offset: $offset) {
+          body
+        }
       }
     }
   }

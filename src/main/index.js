@@ -1,8 +1,5 @@
-import { app, BrowserWindow, Menu, shell } from "electron";
-import * as path from "path";
-import { format as formatUrl } from "url";
-import { answerRenderer, callRenderer } from "electron-better-ipc";
-const isDevelopment = process.env.NODE_ENV !== "production";
+import { app } from "electron";
+import { answerRenderer } from "electron-better-ipc";
 
 import { createMenu } from "./menu";
 import { createMainWindow } from "./createWindow";

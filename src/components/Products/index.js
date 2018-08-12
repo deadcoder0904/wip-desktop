@@ -10,8 +10,6 @@ import { SearchBar } from "../SearchBar/index";
 
 import { SWITCH_SELECTED_PRODUCT } from "../../graphql/mutation/Local/SWITCH_SELECTED_PRODUCT";
 import { GET_SELECTED_PRODUCT } from "../../graphql/queries/Local/GET_SELECTED_PRODUCT";
-import { GET_TODOS_BY_PRODUCT } from "../../graphql/queries/GET_TODOS_BY_PRODUCT";
-import { GET_STATUS } from "../../graphql/queries/Local/GET_STATUS";
 
 import { state } from "../../utils/state";
 
@@ -56,7 +54,7 @@ class ProductsContainer extends React.Component {
     const { products, theme } = this.props;
 
     return (
-      <>
+      <React.Fragment>
         <SearchBar
           input={input}
           onInputChange={this._onInputChange}
@@ -77,55 +75,39 @@ class ProductsContainer extends React.Component {
             return (
               <Container>
                 {this._filterProducts(products, input).map((product, i) => (
-                  <Query query={GET_STATUS} key={v4()}>
-                    {({ data: { status } }) => {
-                      if (loading)
-                        return (
-                          <Loading
-                            color={theme.loading.color}
-                            type="bubbles"
-                            width={50}
-                            height={50}
-                          />
-                        );
-                      if (error) return <Error err={error} />;
+                  <Mutation key={v4()} mutation={SWITCH_SELECTED_PRODUCT}>
+                    {mutate => {
+                      const highlightedProduct = selectedProduct
+                        ? product.name === selectedProduct.name
+                        : i === 0;
                       return (
-                        <Mutation mutation={SWITCH_SELECTED_PRODUCT}>
-                          {mutate => {
-                            const highlightedProduct = selectedProduct
-                              ? product.name === selectedProduct.name
-                              : i === 0;
-                            return (
-                              <Product
-                                onClick={() => {
-                                  if (highlightedProduct) return;
-                                  const selectedProduct = {
-                                    id: product.id,
-                                    name: product.name,
-                                    __typename: "Product",
-                                  };
-                                  state.set({ selectedProduct });
-                                  mutate({
-                                    variables: selectedProduct,
-                                  });
-                                }}
-                              >
-                                <Name highlight={highlightedProduct}>
-                                  {product.name}
-                                </Name>
-                              </Product>
-                            );
+                        <Product
+                          onClick={() => {
+                            if (highlightedProduct) return;
+                            const selectedProduct = {
+                              id: product.id,
+                              name: product.name,
+                              __typename: "Product",
+                            };
+                            state.set({ selectedProduct });
+                            mutate({
+                              variables: selectedProduct,
+                            });
                           }}
-                        </Mutation>
+                        >
+                          <Name highlight={highlightedProduct}>
+                            {product.name}
+                          </Name>
+                        </Product>
                       );
                     }}
-                  </Query>
+                  </Mutation>
                 ))}
               </Container>
             );
           }}
         </Query>
-      </>
+      </React.Fragment>
     );
   }
 }

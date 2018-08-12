@@ -19,8 +19,6 @@ import { GET_STATUS } from "../../graphql/queries/Local/GET_STATUS";
 import { COMPLETE_TODO } from "../../graphql/mutation/COMPLETE_TODO";
 import { UNCOMPLETE_TODO } from "../../graphql/mutation/UNCOMPLETE_TODO";
 
-import { state } from "../../utils/state";
-
 const Content = styled.div`
   background: ${props => props.theme.global.bgColor};
   height: 100vh;

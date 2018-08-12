@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "react-dom";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import { ApolloProvider, Query } from "react-apollo";
-import { ThemeProvider, withTheme } from "emotion-theming";
+import { ThemeProvider } from "emotion-theming";
 
 import { Home } from "../pages/Home";
 import { Token } from "../pages/Token";
@@ -35,7 +35,7 @@ const App = () => (
         return (
           <ThemeProvider theme={theme[mode]}>
             <Global>
-              <>
+              <React.Fragment>
                 <Titlebar />
                 <Router>
                   <Switch>
@@ -43,7 +43,7 @@ const App = () => (
                     <Route path="/" component={Token} />
                   </Switch>
                 </Router>
-              </>
+              </React.Fragment>
             </Global>
           </ThemeProvider>
         );

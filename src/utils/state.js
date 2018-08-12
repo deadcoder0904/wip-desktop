@@ -7,9 +7,3 @@ export const state = new Store({
 // if (process.env.NODE_ENV === "development") {
 //   state.clear();
 // }
-
-state.onDidChange("selectedProduct", (newProduct, oldProduct) => {
-  state.set({
-    selectedProduct: newProduct,
-  });
-});

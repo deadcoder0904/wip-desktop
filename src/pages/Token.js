@@ -1,7 +1,6 @@
 import React from "react";
 import { ApolloConsumer } from "react-apollo";
-import gql from "graphql-tag";
-import { Redirect } from "react-router";
+import { Redirect } from "react-router-dom";
 import styled from "react-emotion";
 import { withTheme } from "emotion-theming";
 import Loading from "react-loading";
@@ -124,13 +123,7 @@ class TokenContainer extends React.Component {
                 onChange={this._onTokenChange}
               />
               <Button onClick={() => this._onSave(client)}>Save Token</Button>
-              {loading && (
-                <Loading
-                  color={theme.loading.color}
-                  type="bars"
-                  color={this.props.theme.loading.color}
-                />
-              )}
+              {loading && <Loading color={theme.loading.color} type="bars" />}
               {error && <Error>{error}</Error>}
             </Wrapper>
           </Container>

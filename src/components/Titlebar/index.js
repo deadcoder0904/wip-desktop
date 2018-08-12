@@ -1,7 +1,6 @@
 import React from "react";
 import styled, { css } from "react-emotion";
 import { callMain, answerMain } from "electron-better-ipc";
-import { Mutation } from "react-apollo";
 
 import {
   Close,
@@ -13,9 +12,6 @@ import {
   Unfocused,
 } from "./WindowButtons/index";
 import { Moon } from "./Moon";
-import { Logo } from "../Logo/index";
-
-import construction from "../../static/construction.svg";
 
 const Container = styled.div`
   display: flex;
@@ -37,7 +33,7 @@ export class Titlebar extends React.Component {
   state = { iconsHovered: false, isFullScreen: false };
 
   componentDidMount() {
-    answerMain("window-blur", isBlur => {
+    answerMain("window-blur", () => {
       this.setState(prevState => ({
         isBlur: !prevState.isBlur,
       }));

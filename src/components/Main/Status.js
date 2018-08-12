@@ -38,7 +38,7 @@ const Btn = styled.button`
 const StatusContainer = ({ theme }) => (
   <Query query={GET_STATUS}>
     {({ data: { status }, loading, error }) => {
-      if (loading)
+      if (loading) {
         return (
           <Loading
             color={theme.loading.color}
@@ -47,6 +47,7 @@ const StatusContainer = ({ theme }) => (
             height={30}
           />
         );
+      }
       if (error) return <Error err={error} />;
       return (
         <Mutation mutation={SET_STATUS}>

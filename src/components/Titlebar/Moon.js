@@ -3,6 +3,9 @@ import { Mutation, Query } from "react-apollo";
 import styled from "react-emotion";
 import { withTheme } from "emotion-theming";
 
+import { Loading } from "../Loading/index";
+import { Error } from "../Error/index";
+
 import { SWITCH_MODE } from "../../graphql/mutation/Local/SWITCH_MODE";
 import { GET_MODE } from "../../graphql/queries/Local/GET_MODE";
 
@@ -41,7 +44,7 @@ const MoonContainer = ({ theme }) => (
     {switchMode => (
       <Query query={GET_MODE}>
         {({ data: { mode }, loading, error }) => {
-          if (loading)
+          if (loading) {
             return (
               <Loading
                 color={theme.loading.color}
@@ -50,6 +53,7 @@ const MoonContainer = ({ theme }) => (
                 height={10}
               />
             );
+          }
           if (error) return <Error err={error} />;
           const { src, alt, pressed } = modeObject[mode];
           return (

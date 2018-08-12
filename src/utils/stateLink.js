@@ -8,9 +8,6 @@ import gql from "graphql-tag";
 
 import { state } from "./state";
 
-import { GET_SELECTED_PRODUCT } from "../graphql/mutation/Local/SWITCH_SELECTED_PRODUCT";
-import { GET_TODOS_BY_PRODUCT } from "../graphql/queries/GET_TODOS_BY_PRODUCT";
-
 const defaultState = {
   mode: state.get("theme") || "LIGHT",
   status: state.get("status") || "PENDING",
@@ -37,7 +34,7 @@ const stateLink = withClientState({
         cache.writeQuery({ query, data });
         return null;
       },
-      switchMode: (_, { id }, { cache }) => {
+      switchMode: (_, __, { cache }) => {
         const query = gql`
           query getMode {
             mode @client
@@ -76,15 +73,18 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 });
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
-  if (graphQLErrors)
-    graphQLErrors.map(({ message, locations, path }) =>
-      console.log(
-        `[GraphQL error]: Message: ${message}, Location: ${JSON.stringify(
-          locations
-        )}, Path: ${path}`
-      )
-    );
-  if (networkError) console.log(`[Network error]: ${networkError}`);
+  if (graphQLErrors) {
+    {
+      graphQLErrors.map(({ message, locations, path }) =>
+        console.log(
+          `[GraphQL error]: Message: ${message}, Location: ${JSON.stringify(
+            locations
+          )}, Path: ${path}`
+        )
+      );
+    }
+    if (networkError) console.log(`[Network error]: ${networkError}`);
+  }
 });
 
 const httpLink = new HttpLink({
