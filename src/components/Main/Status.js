@@ -57,7 +57,7 @@ const StatusContainer = ({ theme }) => (
                   const status = "PENDING";
                   setStatus({ variables: { status } });
                   state.set({
-                    status
+                    status,
                   });
                 }}
                 highlight={status === "PENDING"}
@@ -69,7 +69,7 @@ const StatusContainer = ({ theme }) => (
                   const status = "DONE";
                   setStatus({ variables: { status } });
                   state.set({
-                    status
+                    status,
                   });
                 }}
                 highlight={status === "DONE"}

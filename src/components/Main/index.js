@@ -138,8 +138,8 @@ class MainContainer extends React.Component {
                                   __typename: "Todo",
                                   id: todo.id,
                                   body: todo.body,
-                                  completed_at
-                                }
+                                  completed_at,
+                                },
                               }}
                               update={(cache, { data }) => {
                                 // remove todo item from current status ,i.e, PENDING or DONE
@@ -147,8 +147,8 @@ class MainContainer extends React.Component {
                                   query: GET_TODOS_BY_PRODUCT,
                                   variables: {
                                     id: productId,
-                                    completed
-                                  }
+                                    completed,
+                                  },
                                 });
 
                                 const todos1 = cacheData1.product.todos.filter(
@@ -159,17 +159,17 @@ class MainContainer extends React.Component {
                                   ...cacheData1,
                                   product: {
                                     ...cacheData1.product,
-                                    todos: todos1
-                                  }
+                                    todos: todos1,
+                                  },
                                 };
 
                                 cache.writeQuery({
                                   query: GET_TODOS_BY_PRODUCT,
                                   variables: {
                                     id: productId,
-                                    completed
+                                    completed,
                                   },
-                                  data: newData1
+                                  data: newData1,
                                 });
 
                                 // add todo item to current status ,i.e, PENDING or DONE
@@ -177,8 +177,8 @@ class MainContainer extends React.Component {
                                   query: GET_TODOS_BY_PRODUCT,
                                   variables: {
                                     id: productId,
-                                    completed: status !== "DONE"
-                                  }
+                                    completed: status !== "DONE",
+                                  },
                                 });
 
                                 const todos2 = cacheData2.product.todos.map(
@@ -191,23 +191,23 @@ class MainContainer extends React.Component {
                                       : "completeTodo"
                                   ],
                                   id: todo.id,
-                                  completed_at
+                                  completed_at,
                                 });
                                 const newData2 = {
                                   ...cacheData2,
                                   product: {
                                     ...cacheData2.product,
-                                    todos: todos2
-                                  }
+                                    todos: todos2,
+                                  },
                                 };
 
                                 cache.writeQuery({
                                   query: GET_TODOS_BY_PRODUCT,
                                   variables: {
                                     id: productId,
-                                    completed: status !== "DONE"
+                                    completed: status !== "DONE",
                                   },
-                                  data: newData2
+                                  data: newData2,
                                 });
                               }}
                             >

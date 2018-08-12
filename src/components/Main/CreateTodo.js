@@ -52,8 +52,8 @@ class CreateTodoContainer extends React.Component {
       mutate({
         variables: {
           body: this.state.input,
-          completedAt: status === "DONE" ? new Date().toISOString() : null
-        }
+          completedAt: status === "DONE" ? new Date().toISOString() : null,
+        },
       });
       this._clearInput();
     }
@@ -94,24 +94,24 @@ class CreateTodoContainer extends React.Component {
                     id: v4(),
                     body: input,
                     completed_at:
-                      status === "DONE" ? new Date().toISOString() : null
-                  }
+                      status === "DONE" ? new Date().toISOString() : null,
+                  },
                 }}
                 update={(cache, { data: { createTodo } }) => {
                   const data = cache.readQuery({
                     query: GET_TODOS_BY_PRODUCT,
-                    variables: { id, completed: status === "DONE" }
+                    variables: { id, completed: status === "DONE" },
                   });
                   const todos = data.product.todos.map(t => t); // make a shallow copy otherwise error "Object is not extensible" is thrown
                   todos.push(createTodo);
                   const newData = {
                     ...data,
-                    product: { ...data.product, todos }
+                    product: { ...data.product, todos },
                   };
                   cache.writeQuery({
                     query: GET_TODOS_BY_PRODUCT,
                     variables: { id, completed: status === "DONE" },
-                    data: newData
+                    data: newData,
                   });
                 }}
               >

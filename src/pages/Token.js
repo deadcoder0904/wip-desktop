@@ -63,7 +63,7 @@ class TokenContainer extends React.Component {
   state = {
     token: "",
     loading: false,
-    error: false
+    error: false,
   };
 
   _onTokenChange = e => {
@@ -74,7 +74,7 @@ class TokenContainer extends React.Component {
     const { token } = this.state;
     if (token === "") {
       this.setState({
-        error: "Please enter your token found at https://wip.chat/api"
+        error: "Please enter your token found at https://wip.chat/api",
       });
       return;
     }
@@ -86,15 +86,15 @@ class TokenContainer extends React.Component {
     try {
       const { data } = await client.mutate({
         mutation: CREATE_TODO,
-        variables: { body }
+        variables: { body },
       });
       if (data.createTodo.body === body) {
         await client.mutate({
           mutation: DELETE_TODO,
-          variables: { id: data.createTodo.id }
+          variables: { id: data.createTodo.id },
         });
         const user = await client.query({
-          query: GET_USER
+          query: GET_USER,
         });
         state.set({ loggedIn: true, user: user.data.viewer });
         this.props.history.push("/home");
@@ -102,7 +102,7 @@ class TokenContainer extends React.Component {
     } catch (error) {
       this.setState({
         error: "Invalid Token. Please find your token at https://wip.chat/api",
-        loading: false
+        loading: false,
       });
     }
   };

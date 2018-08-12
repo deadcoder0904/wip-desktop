@@ -10,7 +10,7 @@ import {
   MinimizePressed,
   Maximize,
   MaximizePressed,
-  Unfocused
+  Unfocused,
 } from "./WindowButtons/index";
 import { Moon } from "./Moon";
 import { Logo } from "../Logo/index";
@@ -39,7 +39,7 @@ export class Titlebar extends React.Component {
   componentDidMount() {
     answerMain("window-blur", isBlur => {
       this.setState(prevState => ({
-        isBlur: !prevState.isBlur
+        isBlur: !prevState.isBlur,
       }));
     });
   }

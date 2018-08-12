@@ -25,5 +25,5 @@ export {
   Minimize,
   MinimizePressed,
   Maximize,
-  MaximizePressed
+  MaximizePressed,
 };

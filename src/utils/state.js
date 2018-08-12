@@ -1,7 +1,7 @@
 import Store from "electron-store";
 
 export const state = new Store({
-  themeName: "LIGHT"
+  themeName: "LIGHT",
 });
 
 // if (process.env.NODE_ENV === "development") {
@@ -10,6 +10,6 @@ export const state = new Store({
 
 state.onDidChange("selectedProduct", (newProduct, oldProduct) => {
   state.set({
-    selectedProduct: newProduct
+    selectedProduct: newProduct,
   });
 });

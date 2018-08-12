@@ -27,13 +27,13 @@ const modeObject = {
   DARK: {
     src: LIGHT_MOON,
     alt: "Enable Light mode",
-    pressed: "false"
+    pressed: "false",
   },
   LIGHT: {
     src: DARK_MOON,
     alt: "Enable Dark mode",
-    pressed: "true"
-  }
+    pressed: "true",
+  },
 };
 
 const MoonContainer = ({ theme }) => (

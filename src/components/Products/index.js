@@ -102,11 +102,11 @@ class ProductsContainer extends React.Component {
                                   const selectedProduct = {
                                     id: product.id,
                                     name: product.name,
-                                    __typename: "Product"
+                                    __typename: "Product",
                                   };
                                   state.set({ selectedProduct });
                                   mutate({
-                                    variables: selectedProduct
+                                    variables: selectedProduct,
                                   });
                                 }}
                               >

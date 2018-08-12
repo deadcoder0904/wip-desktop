@@ -6,33 +6,33 @@ export const createMenu = () => {
       label: "Edit",
       submenu: [
         {
-          role: "undo"
+          role: "undo",
         },
         {
-          role: "redo"
+          role: "redo",
         },
         {
-          type: "separator"
+          type: "separator",
         },
         {
-          role: "cut"
+          role: "cut",
         },
         {
-          role: "copy"
+          role: "copy",
         },
         {
-          role: "paste"
+          role: "paste",
         },
         {
-          role: "pasteandmatchstyle"
+          role: "pasteandmatchstyle",
         },
         {
-          role: "delete"
+          role: "delete",
         },
         {
-          role: "selectall"
-        }
-      ]
+          role: "selectall",
+        },
+      ],
     },
     {
       label: "View",
@@ -42,7 +42,7 @@ export const createMenu = () => {
           accelerator: "CmdOrCtrl+R",
           click(item, focusedWindow) {
             if (focusedWindow) focusedWindow.reload();
-          }
+          },
         },
         {
           label: "Toggle Developer Tools",
@@ -50,38 +50,38 @@ export const createMenu = () => {
             process.platform === "darwin" ? "Alt+Command+I" : "Ctrl+Shift+I",
           click(item, focusedWindow) {
             if (focusedWindow) focusedWindow.webContents.toggleDevTools();
-          }
+          },
         },
         {
-          type: "separator"
+          type: "separator",
         },
         {
-          role: "resetzoom"
+          role: "resetzoom",
         },
         {
-          role: "zoomin"
+          role: "zoomin",
         },
         {
-          role: "zoomout"
+          role: "zoomout",
         },
         {
-          type: "separator"
+          type: "separator",
         },
         {
-          role: "togglefullscreen"
-        }
-      ]
+          role: "togglefullscreen",
+        },
+      ],
     },
     {
       role: "window",
       submenu: [
         {
-          role: "minimize"
+          role: "minimize",
         },
         {
-          role: "close"
-        }
-      ]
+          role: "close",
+        },
+      ],
     },
     {
       role: "help",
@@ -90,10 +90,10 @@ export const createMenu = () => {
           label: "Learn More",
           click() {
             shell.openExternal("http://electron.atom.io");
-          }
-        }
-      ]
-    }
+          },
+        },
+      ],
+    },
   ];
 
   if (process.platform === "darwin") {
@@ -102,50 +102,50 @@ export const createMenu = () => {
       label: name,
       submenu: [
         {
-          role: "about"
+          role: "about",
         },
         {
-          type: "separator"
+          type: "separator",
         },
         {
           role: "services",
-          submenu: []
+          submenu: [],
         },
         {
-          type: "separator"
+          type: "separator",
         },
         {
-          role: "hide"
+          role: "hide",
         },
         {
-          role: "hideothers"
+          role: "hideothers",
         },
         {
-          role: "unhide"
+          role: "unhide",
         },
         {
-          type: "separator"
+          type: "separator",
         },
         {
-          role: "quit"
-        }
-      ]
+          role: "quit",
+        },
+      ],
     });
     // Edit menu.
     template[1].submenu.push(
       {
-        type: "separator"
+        type: "separator",
       },
       {
         label: "Speech",
         submenu: [
           {
-            role: "startspeaking"
+            role: "startspeaking",
           },
           {
-            role: "stopspeaking"
-          }
-        ]
+            role: "stopspeaking",
+          },
+        ],
       }
     );
     // Window menu.
@@ -153,24 +153,24 @@ export const createMenu = () => {
       {
         label: "Close",
         accelerator: "CmdOrCtrl+W",
-        role: "close"
+        role: "close",
       },
       {
         label: "Minimize",
         accelerator: "CmdOrCtrl+M",
-        role: "minimize"
+        role: "minimize",
       },
       {
         label: "Zoom",
-        role: "zoom"
+        role: "zoom",
       },
       {
-        type: "separator"
+        type: "separator",
       },
       {
         label: "Bring All to Front",
-        role: "front"
-      }
+        role: "front",
+      },
     ];
   }
 

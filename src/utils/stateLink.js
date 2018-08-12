@@ -14,7 +14,7 @@ import { GET_TODOS_BY_PRODUCT } from "../graphql/queries/GET_TODOS_BY_PRODUCT";
 const defaultState = {
   mode: state.get("theme") || "LIGHT",
   status: state.get("status") || "PENDING",
-  selectedProduct: state.get("selectedProduct") || null
+  selectedProduct: state.get("selectedProduct") || null,
 };
 
 const cache = new InMemoryCache();
@@ -55,21 +55,21 @@ const stateLink = withClientState({
           }
         `;
         const data = {
-          status
+          status,
         };
         cache.writeQuery({ query, data });
         return null;
-      }
-    }
-  }
+      },
+    },
+  },
 });
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   operation.setContext({
     headers: {
       Authorization: `bearer ${state.get("token")}`,
-      "Access-Control-Allow-Origin": "*"
-    }
+      "Access-Control-Allow-Origin": "*",
+    },
   });
 
   return forward(operation);
@@ -88,7 +88,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 });
 
 const httpLink = new HttpLink({
-  uri: "https://wip.chat/graphql"
+  uri: "https://wip.chat/graphql",
 });
 
 export const client = new ApolloClient({
@@ -96,5 +96,5 @@ export const client = new ApolloClient({
     authMiddleware,
     ApolloLink.from([errorLink, stateLink, httpLink])
   ),
-  cache
+  cache,
 });

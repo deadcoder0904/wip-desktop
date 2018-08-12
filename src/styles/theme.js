@@ -5,94 +5,94 @@ export const theme = {
     global: {
       textColor: "#111",
       bgColor: "#fff",
-      fontFamily
+      fontFamily,
     },
     titlebar: {
       bgColor: "lightblue",
-      height: "2.5rem"
+      height: "2.5rem",
     },
     navbar: {
-      bgColor: "#fff"
+      bgColor: "#fff",
     },
     search: {
       icon: "#b6b6b6",
       textColor: "#777",
-      bgColor: "#fff"
+      bgColor: "#fff",
     },
     addTodo: {
       icon: "#b6b6b6",
       textColor: "#777",
-      bgColor: "#f9f9f9"
+      bgColor: "#f9f9f9",
     },
     sidebar: {
       textColor: "#aaa",
       highlightColor: "#111",
       bgColor: "#f9f9f9",
-      width: "25rem"
+      width: "25rem",
     },
     hashtag: {
       textColor: "#111",
       bgColor: "#fff",
-      underlineColor: "#aaa"
+      underlineColor: "#aaa",
     },
     loading: {
-      color: "#000000"
+      color: "#000000",
     },
     status: {
       textColor: "#aaaaaa",
       highlightColor: "#222222",
-      bgColor: "#ffffff"
+      bgColor: "#ffffff",
     },
     statusIcon: {
       doneColor: "#000000",
-      pendingColor: "#000000"
-    }
+      pendingColor: "#000000",
+    },
   },
   DARK: {
     global: {
       textColor: "#dadada",
       bgColor: "#222",
-      fontFamily
+      fontFamily,
     },
     titlebar: {
       bgColor: "#222",
-      height: "2.5rem"
+      height: "2.5rem",
     },
     navbar: {
-      bgColor: "#222"
+      bgColor: "#222",
     },
     search: {
       icon: "#b6b6b6",
       textColor: "#dadada",
-      bgColor: "#333"
+      bgColor: "#333",
     },
     addTodo: {
       icon: "#b6b6b6",
       textColor: "#dadada",
-      bgColor: "#333"
+      bgColor: "#333",
     },
     sidebar: {
       textColor: "#bbb",
       highlightColor: "#fff",
       bgColor: "#111",
-      width: "25rem"
+      width: "25rem",
     },
     hashtag: {
       textColor: "#dadada",
       bgColor: "#222",
-      underlineColor: "#dadada"
+      underlineColor: "#dadada",
     },
     loading: {
-      color: "#ffffff"
+      color: "#ffffff",
     },
     status: {
       textColor: "#aaaaaa",
       highlightColor: "#ffffff",
-      bgColor: "#222222"
+      bgColor: "#222222",
     },
     statusIcon: {
       doneColor: "#ffffff",
-      pendingColor: "#ffffff"
-    }
-  }
+      pendingColor: "#ffffff",
+    },
+  },
 };

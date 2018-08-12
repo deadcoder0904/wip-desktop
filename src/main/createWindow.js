@@ -16,7 +16,7 @@ export const createMainWindow = mainWindow => {
     */
     title: "WIP Desktop",
     frame: false,
-    icon: path.join(__dirname, "../../build/icon.png")
+    icon: path.join(__dirname, "../../build/icon.png"),
   });
 
   if (isDevelopment) {
@@ -30,7 +30,7 @@ export const createMainWindow = mainWindow => {
       formatUrl({
         pathname: path.join(__dirname, "../renderer/index.html"),
         protocol: "file",
-        slashes: true
+        slashes: true,
       })
     );
   }
