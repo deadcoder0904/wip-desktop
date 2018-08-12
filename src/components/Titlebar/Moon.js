@@ -17,7 +17,7 @@ import LIGHT_MOON from "../../static/light_moon.svg";
 const Img = styled.img`
   width: 2.5rem;
   height: 2.5rem;
-  padding-top: 0.8rem;
+  padding-top: 0.4rem;
   padding-right: 0.5rem;
   z-index: 1;
   position: absolute;

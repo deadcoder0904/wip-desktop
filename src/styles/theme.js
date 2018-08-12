@@ -9,8 +9,8 @@ export const theme = {
       fontFamily,
     },
     titlebar: {
-      bgColor: "#f9f9f9",
-      height: "2.5rem",
+      bgColor: "#f8f8f8",
+      height: "3rem",
     },
     navbar: {
       bgColor: "#fff",
@@ -23,12 +23,12 @@ export const theme = {
     addTodo: {
       icon: "#b6b6b6",
       textColor: "#777",
-      bgColor: "#f9f9f9",
+      bgColor: "#f8f8f8",
     },
     sidebar: {
       textColor: "#aaa",
       highlightColor: "#111",
-      bgColor: "#f9f9f9",
+      bgColor: "#f8f8f8",
       width: "25rem",
     },
     hashtag: {
@@ -60,7 +60,7 @@ export const theme = {
     },
     titlebar: {
       bgColor: "#222",
-      height: "2.5rem",
+      height: "3rem",
     },
     navbar: {
       bgColor: "#222",
