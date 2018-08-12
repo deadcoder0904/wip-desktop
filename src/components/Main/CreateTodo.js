@@ -64,7 +64,7 @@ class CreateTodoContainer extends React.Component {
 
   render() {
     const { input } = this.state;
-    const { id, theme } = this.props;
+    const { productId, theme } = this.props;
 
     return (
       <InputBox>
@@ -99,7 +99,7 @@ class CreateTodoContainer extends React.Component {
                 update={(cache, { data: { createTodo } }) => {
                   const data = cache.readQuery({
                     query: GET_TODOS_BY_PRODUCT,
-                    variables: { id, completed: status === "DONE" },
+                    variables: { id: productId, completed: status === "DONE" },
                   });
                   const todos = data.product.todos.map(t => t); // make a shallow copy otherwise error "Object is not extensible" is thrown
                   todos.push(createTodo);
@@ -109,7 +109,7 @@ class CreateTodoContainer extends React.Component {
                   };
                   cache.writeQuery({
                     query: GET_TODOS_BY_PRODUCT,
-                    variables: { id, completed: status === "DONE" },
+                    variables: { id: productId, completed: status === "DONE" },
                     data: newData,
                   });
                 }}
