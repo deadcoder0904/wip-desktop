@@ -9,6 +9,7 @@ import { checkmark } from "react-icons-kit/icomoon/checkmark";
 import { cross } from "react-icons-kit/icomoon/cross";
 
 import { CreateTodo } from "./CreateTodo";
+import { DeleteTodo } from "./DeleteTodo";
 import { Loading } from "../Loading/index";
 import { Error } from "../Error/index";
 import { Status } from "./Status";
@@ -210,12 +211,11 @@ class MainContainer extends React.Component {
                               }}
                             >
                               {mutate => (
-                                <TodoBox
-                                  onClick={() => {
-                                    mutate({ variables: { id: todo.id } });
-                                  }}
-                                >
+                                <TodoBox>
                                   <StatusIcon
+                                    onClick={() => {
+                                      mutate({ variables: { id: todo.id } });
+                                    }}
                                     icon={completed ? checkmark : cross}
                                     color={
                                       completed
@@ -226,6 +226,11 @@ class MainContainer extends React.Component {
                                   />
                                   <Todo>
                                     {this._getHashtag(todo.body, hashtag)}
+                                    <DeleteTodo
+                                      id={todo.id}
+                                      productId={productId}
+                                      completed={completed}
+                                    />
                                   </Todo>
                                 </TodoBox>
                               )}

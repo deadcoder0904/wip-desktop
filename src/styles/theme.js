@@ -48,6 +48,9 @@ export const theme = {
       doneColor: "#000000",
       pendingColor: "#000000",
     },
+    binIcon: {
+      color: "#000000",
+    },
   },
   DARK: {
     global: {
@@ -94,6 +97,9 @@ export const theme = {
     statusIcon: {
       doneColor: "#ffffff",
       pendingColor: "#ffffff",
+    },
+    binIcon: {
+      color: "#ffffff",
     },
   },
 };

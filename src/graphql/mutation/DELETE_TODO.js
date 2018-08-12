@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
 export const DELETE_TODO = gql`
-  mutation($id: ID!) {
+  mutation deleteTodo($id: ID!) {
     deleteTodo(id: $id)
   }
 `;
