@@ -102,7 +102,7 @@ class TodoBoxContainer extends React.Component {
           });
 
           const todos2 = cacheData2.product.todos.map(t => t); // make a shallow copy otherwise error "Object is not extensible" is thrown
-          todos2.push({
+          todos2.unshift({
             ...data[completed ? "uncompleteTodo" : "completeTodo"],
             id: todo.id,
             completed_at,

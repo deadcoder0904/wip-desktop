@@ -102,7 +102,7 @@ class CreateTodoContainer extends React.Component {
                     variables: { id: productId, completed: status === "DONE" },
                   });
                   const todos = data.product.todos.map(t => t); // make a shallow copy otherwise error "Object is not extensible" is thrown
-                  todos.push(createTodo);
+                  todos.unshift(createTodo);
                   const newData = {
                     ...data,
                     product: { ...data.product, todos },
