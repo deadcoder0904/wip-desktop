@@ -7,6 +7,7 @@ import { v4 } from "uuid";
 import { Icon } from "react-icons-kit";
 import { checkmark } from "react-icons-kit/icomoon/checkmark";
 import { cross } from "react-icons-kit/icomoon/cross";
+import { shell } from "electron";
 
 import { DeleteTodo } from "./DeleteTodo";
 
@@ -39,10 +40,30 @@ const StatusIcon = styled(Icon)`
   align-self: flex-start;
 `;
 
+const Btn = styled.button`
+  font-size: 1.6rem;
+  font-family: ${props => props.theme.global.fontFamily};
+  font-weight: 300;
+  border: none;
+  color: ${props => props.theme.hashtag.textColor};
+  background: ${props => props.theme.hashtag.bgColor};
+  border-bottom: 0.1rem solid ${props => props.theme.hashtag.underlineColor};
+  padding: 0.3rem;
+`;
+
 class TodoBoxContainer extends React.Component {
   _getHashtag = (body, hashtag) => {
     return reactStringReplace(body, `#${hashtag}`, (match, i) => (
       <Hashtag key={v4()}>{match}</Hashtag>
+    ));
+  };
+
+  _getLink = body => {
+    const urlRegex = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/;
+    return reactStringReplace(body, urlRegex, (match, i) => (
+      <Btn key={v4()} onClick={() => shell.openExternal(match)}>
+        {match}
+      </Btn>
     ));
   };
 
@@ -140,7 +161,7 @@ class TodoBoxContainer extends React.Component {
               size={16}
             />
             <Todo>
-              {this._getHashtag(todo.body, hashtag)}
+              {this._getLink(this._getHashtag(todo.body, hashtag))}
               <DeleteTodo
                 id={todo.id}
                 productId={productId}

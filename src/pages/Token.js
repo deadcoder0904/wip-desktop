@@ -2,8 +2,11 @@ import React from "react";
 import { ApolloConsumer } from "react-apollo";
 import { Redirect } from "react-router-dom";
 import styled from "react-emotion";
+import reactStringReplace from "react-string-replace";
 import { withTheme } from "emotion-theming";
 import Loading from "react-loading";
+import { shell } from "electron";
+import { v4 } from "uuid";
 
 import { CREATE_TODO } from "../graphql/mutation/CREATE_TODO";
 import { DELETE_TODO } from "../graphql/mutation/DELETE_TODO";
@@ -58,25 +61,38 @@ const Error = styled.div`
   font-size: 2rem;
 `;
 
+const Btn = styled.button`
+  font-size: 1.8rem;
+  padding: 0;
+  border: none;
+  text-decoration: none;
+  color: red;
+  border-bottom: 0.1rem solid red;
+`;
+
 class TokenContainer extends React.Component {
   state = {
     token: "",
     loading: false,
-    error: false,
+    error: "Please find your token at https://wip.chat/api",
   };
 
   _onTokenChange = e => {
     this.setState({ token: e.target.value });
   };
 
+  _getLink = body => {
+    const urlRegex = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/;
+    return reactStringReplace(body, urlRegex, (match, i) => (
+      <Btn key={v4()} onClick={() => shell.openExternal(match)}>
+        {match}
+      </Btn>
+    ));
+  };
+
   _onSave = async client => {
     const { token } = this.state;
-    if (token === "") {
-      this.setState({
-        error: "Please enter your token found at https://wip.chat/api",
-      });
-      return;
-    }
+    if (token === "") return;
     state.set({ token });
     this.setState({ error: false, loading: true });
     const body =
@@ -124,7 +140,7 @@ class TokenContainer extends React.Component {
               />
               <Button onClick={() => this._onSave(client)}>Save Token</Button>
               {loading && <Loading color={theme.loading.color} type="bars" />}
-              {error && <Error>{error}</Error>}
+              {error && <Error>{this._getLink(error)}</Error>}
             </Wrapper>
           </Container>
         )}
